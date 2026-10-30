@@ -1,5 +1,7 @@
 # 동현둠 v0.1
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23793861.svg)](https://doi.org/10.5281/zenodo.23793861)
+
 둠(DOOM) Shareware 에피소드 1 「Knee-Deep in the Dead」를 브라우저에서 한다. **스테이지·난이도·체력·방어구**와 치트 **IDDQD·IDKFA**는 동현랭 코드로 정하고, 싸움은 키보드로 한다. 무기 6종(주먹·전기톱·권총·산탄총·기관총·로켓 발사기)은 처음부터 모두 들고 있다.
 동현 시리즈의 아홉 번째 작은 실험이다.
 

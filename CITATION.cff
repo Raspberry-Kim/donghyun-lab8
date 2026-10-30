@@ -4,6 +4,7 @@ title: "Donghyundoom (동현둠): a browser laboratory for the shareware DOOM Ep
 type: software
 version: "0.1"
 date-released: "2026-10-30"
+doi: "10.5281/zenodo.23793861"
 authors:
   - family-names: Kim
     given-names: Dong Hyun
