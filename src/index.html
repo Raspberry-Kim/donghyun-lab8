@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="ko" data-theme="light">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="둠 무료판 에피소드 1의 스테이지·난이도·체력·방어구와 IDDQD·IDKFA 치트를 동현랭 코드로 정하고 키보드로 싸우는 실험실이다.">
+  <title>동현둠™ · 코드로 정하고 키보드로 싸운다</title>
+  <link rel="icon" type="image/x-icon" sizes="16x16 32x32 48x48" href="./favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<header class="header">
+  <a class="brand" href="#" aria-label="동현둠 첫 화면으로"><span class="brand-main"><img class="brand-icon" src="__BRAND_ICON__" alt="" width="96" height="96">동현<span>둠</span><sup>TM</sup></span><i class="brand-divider"></i><span class="brand-sub">SHAREWARE DOOM LAB<small>에피소드 1 · 코드로 출전</small></span></a>
+  <div class="edition">v0.1<button id="theme" class="icon-btn" aria-label="밝은 화면과 어두운 화면 전환" title="화면 전환" aria-pressed="false"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button></div>
+</header>
+<main>
+__SERIES_NAV__
+  <section class="intro">
+    <div><div class="eyebrow">SHAREWARE DOOM × ESOTERIC LANGUAGE</div><h1>코드로 나서는 포보스 기지: <span class="title-brand">동현<span>둠</span><sup>TM</sup></span></h1><p>둠 무료판 에피소드 1 「Knee-Deep in the Dead」의 아홉 맵이다. <strong>스테이지·난이도·체력·방어구</strong>와 치트 <strong>IDDQD·IDKFA</strong>는 <strong>동현랭</strong>으로 정하고, 싸움은 키보드로 한다.</p></div>
+    <div class="model-stamp"><strong id="stamp-map">E1M1 <span>스테이지</span></strong><strong id="stamp-skill">3 <span>난이도</span></strong><small>무료판 DOOM1.WAD · 무기 6종을 처음부터 · 데스크톱 키보드</small></div>
+  </section>
+  <nav class="tabs" aria-label="동현둠 메뉴"><button class="active" data-tab="play" aria-current="page">출전</button><button data-tab="protocol">동현둠 규약</button><button data-tab="rules">조작과 맵</button><button data-tab="about">엔진과 출처</button><span>설정은 동현랭으로, 싸움은 키보드로</span></nav>
+  <div class="getting-started"><p><strong>처음이라면?</strong> 예제를 고르고 <b>출전</b>을 눌러 보자. 게임 화면을 누르면 키보드가 게임으로 가고, 코드 칸을 누르면 다시 코드로 온다.</p><a href="https://raspberry-kim.github.io/donghyun-lang/" target="_blank" rel="noopener">동현랭 배우기 · 실행기 ↗</a></div>
+  <p class="mobile-note" id="mobile-note" role="note"><strong>데스크톱 전용</strong> 동현둠은 실제 키보드로만 움직인다. 휴대폰과 태블릿에서는 게임을 띄우지 않는다. 코드를 실행해 출전 설정을 확인하고 문서를 읽을 수는 있다.</p>
+
+  <section class="tab-panel" id="tab-play">
+    <div class="play-grid">
+      <div class="field-col">
+        <div class="section-title"><h2><span>A</span> 전장</h2><span id="status" role="status">출전을 기다린다</span></div>
+        <div class="doom-wrap">
+          <div class="doom-screen" id="screen">
+            <div class="doom-poster" id="poster">
+              <div class="doom-poster-in">
+                <span class="doom-tag">KNEE-DEEP IN THE DEAD · 데스크톱 키보드 전용</span>
+                <strong id="poster-map">E1M1 · Hangar</strong>
+                <p>오른쪽 코드에서 <b>출전</b>을 누르면 엔진과 무료판 자료(약 6MB)를 불러와 이 자리에서 시작한다.</p>
+                <button id="poster-run" class="dh-btn dh-run">이 설정으로 출전</button>
+              </div>
+            </div>
+          </div>
+          <div class="doom-bar">
+            <span class="focus-pill" id="focus-pill" data-on="false">키보드: 코드</span>
+            <button id="focus-game" class="dh-btn" disabled>게임에 키보드 주기</button>
+            <button id="stop" class="dh-btn" disabled>끝내기</button>
+            <button id="full" class="dh-btn" disabled>전체 화면</button>
+          </div>
+        </div>
+        <ul class="keys" aria-label="조작 키">
+          <li><kbd>W</kbd><kbd>S</kbd> 앞·뒤</li>
+          <li><kbd>←</kbd><kbd>→</kbd> 돌기</li>
+          <li><kbd>A</kbd><kbd>D</kbd> 옆걸음</li>
+          <li><kbd>Space</kbd> 쏘기</li>
+          <li><kbd>E</kbd> 문·스위치</li>
+          <li><kbd>Shift</kbd> 달리기</li>
+          <li><kbd>1</kbd>–<kbd>5</kbd> 무기</li>
+          <li><kbd>Tab</kbd> 지도</li>
+          <li><kbd>Esc</kbd> 메뉴</li>
+        </ul>
+      </div>
+      <div class="side-col">
+        <div class="section-title"><h2><span>B</span> 동현랭 출전 코드</h2><span>doom.dh</span></div>
+        <div class="dh-panel">
+          <div class="dh-head"><select id="example" aria-label="동현랭 출전 예제 선택"></select><span class="dh-spacer"></span><button id="run" class="dh-btn dh-run" title="Ctrl/⌘ + Enter"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l12-7.5z"></path></svg>출전 <kbd>⌘↵</kbd></button></div>
+          <div class="code-wrap"><div id="lines" aria-hidden="true"></div><textarea id="code" aria-label="동현랭 출전 코드" spellcheck="false" autocomplete="off" autocapitalize="off"></textarea></div>
+          <div class="code-meta dh-status"><span id="line-count"></span><span>정수 여섯 출력 → 출전 · ⌘/Ctrl ↵ 실행</span></div>
+        </div>
+        <p id="example-note"></p>
+        <div class="sortie-card" id="set-card"></div>
+        <p id="result" aria-live="polite">예제를 고른 뒤 출전을 눌러 보자. 여섯 값은 코드로만 정한다.</p>
+        <div class="file-row"><button id="save">.dh 저장</button><label class="file-label">.dh 열기<input id="open" type="file" accept=".dh,.txt,text/plain" hidden></label></div>
+      </div>
+    </div>
+    <div class="workflow"><span>동현랭 코드</span><b>→</b><span>스테이지 · 난이도 · 체력 · 방어구 · 치트</span><b>→</b><span>출전</span><b>→</b><span>키보드로 싸우기</span><b>→</b><span>출구 스위치</span></div>
+  </section>
+
+  <section class="tab-panel document" id="tab-protocol" hidden>
+    <div class="doc-heading"><div class="eyebrow">SORTIE PROTOCOL</div><h2>동현둠 규약</h2></div>
+    <div class="doc-columns">
+      <div>
+        <h3>정하는 것은 여섯 숫자다</h3>
+        <p>동현랭 코드가 출력한 정수 여섯 개를 차례로 읽는다.</p>
+        <div class="table-wrap"><table class="proto">
+          <thead><tr><th>순서</th><th>값</th><th>범위</th><th>기본</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>스테이지 E1M<i>n</i></td><td><code>1</code>–<code>9</code></td><td>1</td></tr>
+            <tr><td>2</td><td>난이도</td><td><code>1</code>–<code>5</code></td><td>3</td></tr>
+            <tr><td>3</td><td>체력</td><td><code>1</code>–<code>200</code></td><td>100</td></tr>
+            <tr><td>4</td><td>방어구</td><td><code>0</code>–<code>200</code></td><td>0</td></tr>
+            <tr><td>5</td><td>IDDQD 무적</td><td><code>0</code> 끔 · <code>1</code> 켬</td><td>0</td></tr>
+            <tr><td>6</td><td>IDKFA 무기·열쇠</td><td><code>0</code> 끔 · <code>1</code> 켬</td><td>0</td></tr>
+          </tbody>
+        </table></div>
+        <ul>
+          <li>아무것도 출력하지 않으면 기본값 <code>1 3 100 0 0 0</code>으로 나선다.</li>
+          <li>정수가 여섯 개가 아니거나 범위를 벗어나면 출전하지 않고 오류를 알려 준다.</li>
+          <li>난이도 1–5는 원작의 I'm too young to die · Hey, not too rough · Hurt me plenty · Ultra-Violence · Nightmare!이다.</li>
+        </ul>
+        <h3>예제</h3>
+        <p><strong>01 · 기본</strong>은 <code>1 3 100 0 0 0</code>을 출력한다. 0은 <code>도옹ㅠ</code>, 100은 <code>도오오오오오오오오옹 도오오오오오오오오옹</code>(10×10)으로 쓴다. <strong>06 · 계산해서 정하기</strong>는 체력을 스테이지 × 25로 계산한다.</p>
+      </div>
+      <div>
+        <h3>값이 듣는 때</h3>
+        <ul>
+          <li><strong>체력·방어구</strong>는 처음 나설 때와 쓰러져 다시 시작할 때 코드 값으로 정해진다. 다음 맵으로 넘어가면 원작처럼 이어진다.</li>
+          <li>방어구가 100 이하이면 초록 방어구(피해의 1/3을 막음), 100을 넘으면 파란 방어구(1/2을 막음)로 친다.</li>
+          <li><strong>무기 6종</strong>(주먹·전기톱·권총·산탄총·기관총·로켓 발사기)은 맵이 시작될 때마다 늘 쥐어 준다. 탄약이 모자라면 총알 100 · 산탄 20 · 로켓 10까지 채운다.</li>
+          <li><strong>IDDQD</strong>를 켜면 맵마다 무적이 켜진다. 체력은 코드 값 그대로다.</li>
+          <li><strong>IDKFA</strong>를 켜면 맵마다 열쇠 셋, 탄약 가득, 파란 방어구 200을 받는다. 방어구 값보다 IDKFA가 앞선다.</li>
+        </ul>
+        <h3>게임 중 치트 입력은 없다</h3>
+        <p>원작처럼 게임 중에 IDDQD·IDKFA·IDCLEV 같은 글자를 쳐도 듣지 않는다. 치트는 동현랭 코드로만 켠다. 원작은 Nightmare!에서 치트를 막지만, 코드로 켜는 치트는 이 난이도에서도 듣는다.</p>
+        <p>무료판에는 플라스마 라이플과 BFG9000이 없다. 그래서 IDKFA를 켜도 쓸 수 있는 무기는 6종이다.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="tab-panel document" id="tab-rules" hidden>
+    <div class="doc-heading"><div class="eyebrow">CONTROLS & MAPS</div><h2>조작과 맵</h2></div>
+    <div class="doc-columns">
+      <div>
+        <h3>키보드</h3>
+        <div class="table-wrap"><table class="proto">
+          <tbody>
+            <tr><td><kbd>W</kbd> <kbd>S</kbd></td><td>앞으로 · 뒤로</td></tr>
+            <tr><td><kbd>←</kbd> <kbd>→</kbd></td><td>왼쪽 · 오른쪽으로 돌기</td></tr>
+            <tr><td><kbd>A</kbd> <kbd>D</kbd></td><td>왼쪽 · 오른쪽 옆걸음</td></tr>
+            <tr><td><kbd>Space</kbd></td><td>쏘기</td></tr>
+            <tr><td><kbd>E</kbd></td><td>문 열기 · 스위치 누르기</td></tr>
+            <tr><td><kbd>Shift</kbd> 누른 채</td><td>달리기</td></tr>
+            <tr><td><kbd>1</kbd></td><td>주먹 · 전기톱(누를 때마다 바뀜)</td></tr>
+            <tr><td><kbd>2</kbd> <kbd>3</kbd> <kbd>4</kbd> <kbd>5</kbd></td><td>권총 · 산탄총 · 기관총 · 로켓 발사기</td></tr>
+            <tr><td><kbd>Tab</kbd></td><td>자동 지도</td></tr>
+            <tr><td><kbd>Esc</kbd></td><td>메뉴(새 게임·소리·끝내기)</td></tr>
+          </tbody>
+        </table></div>
+        <p><strong>휴대폰·태블릿은 지원하지 않는다.</strong> 화면 단추나 터치 조작이 없어 실제 키보드가 있는 컴퓨터에서만 싸울 수 있다. 마우스는 쓰지 않는다. 게임 화면을 한 번 누르면 키보드가 게임으로 가고, 위 띠의 표시가 「키보드: 게임」으로 바뀐다. 코드 칸을 누르면 다시 코드로 돌아온다.</p>
+        <p>소리는 효과음만 난다. 브라우저에서 음악 장치(OPL) 초기화가 멈추는 문제가 있어 음악은 껐다.</p>
+      </div>
+      <div>
+        <h3>에피소드 1의 아홉 맵</h3>
+        <div class="table-wrap"><table class="proto">
+          <tbody>
+            <tr><td>E1M1</td><td>Hangar · 격납고</td></tr>
+            <tr><td>E1M2</td><td>Nuclear Plant · 원자력 발전소</td></tr>
+            <tr><td>E1M3</td><td>Toxin Refinery · 독극물 정제소</td></tr>
+            <tr><td>E1M4</td><td>Command Control · 사령 통제실</td></tr>
+            <tr><td>E1M5</td><td>Phobos Lab · 포보스 연구소</td></tr>
+            <tr><td>E1M6</td><td>Central Processing · 중앙 처리 시설</td></tr>
+            <tr><td>E1M7</td><td>Computer Station · 컴퓨터 기지</td></tr>
+            <tr><td>E1M8</td><td>Phobos Anomaly · 포보스 이상 지대</td></tr>
+            <tr><td>E1M9</td><td>Military Base · 군사 기지(비밀 맵)</td></tr>
+          </tbody>
+        </table></div>
+        <p>맵 이름은 원작의 이름이다(<a href="https://doom.fandom.com/wiki/Knee-Deep_in_the_Dead" target="_blank" rel="noopener">Doom Wiki</a>). 원작에서 E1M9는 E1M3의 비밀 출구로만 간다. 동현둠에서는 스테이지 9로 바로 나설 수 있다. E1M8의 끝에서 에피소드가 끝난다.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="tab-panel document" id="tab-about" hidden>
+    <div class="doc-heading"><div class="eyebrow">ENGINE & CREDITS</div><h2>엔진과 출처</h2></div>
+    <div class="doc-columns">
+      <div>
+        <h3>엔진: Chocolate Doom · doom-wasm</h3>
+        <p>게임 엔진은 Cloudflare의 <a href="https://github.com/cloudflare/doom-wasm" target="_blank" rel="noopener">doom-wasm</a>이다. 원작 둠 1.9의 동작을 충실히 따르는 <a href="https://github.com/chocolate-doom/chocolate-doom" target="_blank" rel="noopener">Chocolate Doom</a>을 브라우저(WebAssembly)로 옮긴 것이고, 바탕은 id Software가 공개한 <a href="https://github.com/id-Software/DOOM" target="_blank" rel="noopener">둠 소스 코드</a>다. 모두 <strong>GNU GPL 2.0</strong>이다.</p>
+        <p>동현둠은 엔진을 네 곳 고쳤다. 동현랭 값을 받는 명령줄 인자(<code>-dhhealth</code> <code>-dharmor</code> <code>-dhgod</code> <code>-dhkfa</code>), 맵마다 무기 6종 주기, 게임 중 치트 입력 끄기(자동 지도 IDDT 포함), 빌드 설정이다. 고친 소스 전체와 고친 부분(<code>engine/donghyun-doom.patch</code>), 빌드 방법(<code>engine/build.sh</code>)을 <a href="https://github.com/Raspberry-Kim/donghyun-lab8" target="_blank" rel="noopener">저장소</a>에 함께 둔다.</p>
+        <h3>게임 자료: DOOM1.WAD</h3>
+        <p>맵·그림·소리는 둠 무료판(shareware) v1.9의 <code>DOOM1.WAD</code>다. © 1994 id Software. 고치지 않은 원래 파일(MD5 <code class="wrap">f0cefca49926d00903cf57551d901abe</code>)을 그대로 함께 둔다. 무료판 파일은 고치지 않으면 자유롭게 나눌 수 있다(<a href="https://metadata.ftp-master.debian.org/changelogs/non-free/d/doom-wad-shareware/unstable_copyright" target="_blank" rel="noopener">Debian 저작권 파일의 John Carmack 회신</a>, <a href="https://people.montefiore.uliege.be/quinet/games/sellingwads-en.html" target="_blank" rel="noopener">Raphael Quinet</a>). 이 파일은 GPL이 아니며 id Software의 사용 허락을 따른다. 돈을 받고 나눌 수 없다.</p>
+        <h3>권리</h3>
+        <p>DOOM은 id Software(ZeniMax Media)의 상표다. 동현둠은 id Software·ZeniMax·Bethesda·Microsoft·Cloudflare와 관계가 없고 승인도 받지 않은 비상업 취미 작품이다.</p>
+      </div>
+      <div>
+        <h3>동현둠이 만든 것</h3>
+        <p>화면, 동현랭 출전 규약, 예제, 문서, 엔진 수정. 엔진과 함께 나가므로 저장소 전체는 <strong>GPL 2.0</strong>을 따른다. 동현랭 실행기(<code>donghyun.js</code>)는 <a href="https://github.com/Raspberry-Kim/donghyun-lang" target="_blank" rel="noopener">동현랭</a> v1.53을 고치지 않고 썼으며 MIT 라이선스다.</p>
+        <h3>글꼴</h3>
+        <p>Black Han Sans, Nanum Gothic Coding, Pretendard — SIL Open Font License 1.1.</p>
+        <h3>시험</h3>
+        <p><code>node qa/core-tests.cjs</code>가 예제 출력과 규약 판정(개수·범위·기본값)을 확인한다. 엔진은 브라우저에서 스테이지·난이도·체력·방어구·IDDQD·IDKFA가 듣는지, 게임 중에 친 치트가 듣지 않는지 확인했다.</p>
+      </div>
+    </div>
+    <aside class="maker-note"><span class="eyebrow">만든 사람</span><p>인하대학교 의과대학 김동현 교수는 백신학·감염학을 연구한다. 동현둠은 동현랭 시리즈의 아홉 번째 프로젝트이다.</p></aside>
+  </section>
+</main>
+<footer><span>동현둠 v0.1 · 인하대학교 의과대학 교수 김동현</span><span>둠 무료판 에피소드 1 · 키보드 · 데스크톱</span><span><a href="https://raspberry-kim.github.io/donghyun-lang/" target="_blank" rel="noopener">동현랭</a> · <a href="https://github.com/Raspberry-Kim/donghyun-lang" target="_blank" rel="noopener">동현랭 GitHub</a> · <a href="https://github.com/Raspberry-Kim/donghyun-lab8" target="_blank" rel="noopener">동현둠 GitHub</a> · <a href="https://raspberry-kim.github.io/donghyun-lab1/" target="_blank" rel="noopener">동현초</a> · <a href="https://raspberry-kim.github.io/donghyun-lab2/" target="_blank" rel="noopener">동현파</a> · <a href="https://raspberry-kim.github.io/donghyun-lab3/" target="_blank" rel="noopener">동현빌</a> · <a href="https://raspberry-kim.github.io/donghyun-lab4/" target="_blank" rel="noopener">동현전</a> · <a href="https://raspberry-kim.github.io/donghyun-lab5/" target="_blank" rel="noopener">동현콥</a> · <a href="https://raspberry-kim.github.io/donghyun-lab6/" target="_blank" rel="noopener">동현텐</a> · <a href="https://raspberry-kim.github.io/donghyun-lab7/" target="_blank" rel="noopener">동현워</a></span></footer>
+<script src="./app.js"></script>
+</body>
+</html>

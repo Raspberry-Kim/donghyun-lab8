@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8"><title>동현둠 엔진</title>
+<!-- 동현둠: doom-wasm(Chocolate Doom, GPL-2.0)을 띄우는 틀. 부모 화면이 주소의 # 뒤에 출전 값을 넣는다. -->
+<style>html,body{margin:0;height:100%;background:#000;overflow:hidden}canvas{display:block;width:100%;height:100%;image-rendering:pixelated;outline:none;background:#000}#msg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#ccc;font:14px system-ui,sans-serif;pointer-events:none}</style></head>
+<body><canvas id="canvas" tabindex="0" oncontextmenu="event.preventDefault()"></canvas><div id="msg">엔진을 불러온다…</div>
+<script>
+(function(){
+  var q = new URLSearchParams(location.hash.slice(1));
+  function n(k,d,lo,hi){var v=parseInt(q.get(k),10);if(isNaN(v))v=d;return Math.max(lo,Math.min(hi,v));}
+  var args=["-iwad","doom1.wad","-window","-nogui","-config","default.cfg",
+    "-warp","1",String(n("m",1,1,9)),"-skill",String(n("k",3,1,5)),
+    "-dhhealth",String(n("h",100,1,200)),"-dharmor",String(n("a",0,0,200))];
+  if(q.get("g")==="1")args.push("-dhgod");
+  if(q.get("f")==="1")args.push("-dhkfa");
+  args.push("-nomusic"); // 음악(OPL) 초기화는 브라우저에서 멈추므로 효과음만 쓴다
+  var canvas=document.getElementById("canvas"), msg=document.getElementById("msg");
+  window.dhArgs=args;
+  function tell(state,detail){try{parent.postMessage({type:"dh-doom",state:state,detail:detail||""},"*");}catch(e){}}
+  window.addEventListener("error",function(e){tell("error",String(e.message||e));});
+  window.addEventListener("focus",function(){tell("focus");});
+  window.addEventListener("blur",function(){tell("blur");});
+  window.Module={
+    noInitialRun:true, canvas:canvas,
+    preRun:[function(){
+      ENV.SDL_EMSCRIPTEN_KEYBOARD_ELEMENT="#canvas";
+      Module.FS.createPreloadedFile("","doom1.wad","doom1.wad",true,true);
+      Module.FS.createPreloadedFile("","default.cfg","default.cfg",true,true);
+    }],
+    onRuntimeInitialized:function(){msg.remove();canvas.focus();tell("started");callMain(args);window.dhStarted=true;},
+    print:function(t){console.log(t)}, printErr:function(t){console.log(t)},
+    setStatus:function(){}
+  };
+  canvas.addEventListener("mousedown",function(){canvas.focus()});
+  // 브라우저 단축키(스페이스 스크롤, 방향키)가 바깥 페이지로 새지 않게 한다
+  window.addEventListener("keydown",function(e){if([9,32,37,38,39,40].indexOf(e.keyCode)>=0)e.preventDefault();});
+})();
+</script>
+<script src="websockets-doom.js"></script></body></html>

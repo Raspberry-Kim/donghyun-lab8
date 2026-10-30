@@ -1,0 +1,123 @@
+diff --git a/configure.ac b/configure.ac
+index ae1320b..a4905d6 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -26,7 +26,7 @@ OPT_LEVEL=3
+ if test "$GCC" = "yes"
+ then
+         WARNINGS="-Wall -Wdeclaration-after-statement -Wredundant-decls"
+-        CFLAGS="-O$OPT_LEVEL -g $WARNINGS $orig_CFLAGS"
++        CFLAGS="-std=gnu99 -O$OPT_LEVEL $WARNINGS $orig_CFLAGS"
+ fi
+ 
+ # PKG_CHECK_MODULES(SDL, [sdl2 >= 2.0.7])
+@@ -115,7 +115,7 @@ AS_IF([test "x$with_libpng" != xno], [
+ 
+ # TODO: We currently link everything against libraries that don't need it.
+ # Use the specific library CFLAGS/LIBS variables instead of setting them here.
+-EMFLAGS="-gsource-map -s INVOKE_RUN=1 -s USE_SDL=2 -s USE_SDL_MIXER=2 -s LEGACY_GL_EMULATION=0 -s USE_SDL_NET=2 -s ASSERTIONS=0 -s WASM=1 -s ALLOW_MEMORY_GROWTH=0 -s FORCE_FILESYSTEM=1 -s EXTRA_EXPORTED_RUNTIME_METHODS=[['FS','ccall']] -s SAFE_HEAP=1 -s EXIT_RUNTIME=1 -s STACK_OVERFLOW_CHECK=1 -s PROXY_POSIX_SOCKETS=0 -s USE_PTHREADS=0 -s PROXY_TO_PTHREAD=0 -s TOTAL_MEMORY=64MB -s ERROR_ON_UNDEFINED_SYMBOLS=0 -s ASYNCIFY -O3 --source-map-base /"
++EMFLAGS="-s INVOKE_RUN=1 -s USE_SDL=2 -s USE_SDL_MIXER=2 -s USE_SDL_NET=2 -s ASSERTIONS=0 -s WASM=1 -s ALLOW_MEMORY_GROWTH=0 -s FORCE_FILESYSTEM=1 -s EXPORTED_RUNTIME_METHODS=[['FS','ccall','callMain']] -s EXIT_RUNTIME=1 -s INITIAL_MEMORY=64MB -s ERROR_ON_UNDEFINED_SYMBOLS=0 -s ASYNCIFY -O3"
+ 
+ CFLAGS="$CFLAGS $SDL_CFLAGS ${SAMPLERATE_CFLAGS:-} ${PNG_CFLAGS:-} $EMFLAGS"
+ LDFLAGS="$LDFLAGS $SDL_LIBS ${SAMPLERATE_LIBS:-} ${PNG_LIBS:-} $EMFLAGS -lwebsocket.js"
+diff --git a/src/doom/am_map.c b/src/doom/am_map.c
+index 2ea9f62..d01b85c 100644
+--- a/src/doom/am_map.c
++++ b/src/doom/am_map.c
+@@ -719,7 +719,7 @@ AM_Responder
+             rc = false;
+         }
+ 
+-        if ((!deathmatch || gameversion <= exe_doom_1_8)
++        if (0 && (!deathmatch || gameversion <= exe_doom_1_8)
+          && cht_CheckCheat(&cheat_amap, ev->data2))
+         {
+             rc = false;
+diff --git a/src/doom/p_mobj.c b/src/doom/p_mobj.c
+index ab71b50..159d68e 100644
+--- a/src/doom/p_mobj.c
++++ b/src/doom/p_mobj.c
+@@ -684,6 +684,47 @@ void P_RespawnSpecials (void)
+ // Most of the player structure stays unchanged
+ //  between levels.
+ //
++
++/* 동현둠: 동현랭 출전 코드가 정한 값. 명령줄 -dhhealth -dharmor -dhgod -dhkfa로 받는다. */
++#include "m_argv.h"
++#include "deh_misc.h"
++#include <stdlib.h>
++static void DH_Apply(player_t *p, boolean reborn)
++{
++    static int loaded = 0, health = 100, armor = 0, god = 0, kfa = 0;
++    int i;
++    if (!loaded)
++    {
++        loaded = 1;
++        i = M_CheckParmWithArgs("-dhhealth", 1); if (i) health = atoi(myargv[i+1]);
++        i = M_CheckParmWithArgs("-dharmor", 1);  if (i) armor = atoi(myargv[i+1]);
++        god = M_CheckParm("-dhgod") != 0;
++        kfa = M_CheckParm("-dhkfa") != 0;
++        if (health < 1) health = 1; if (health > 200) health = 200;
++        if (armor < 0) armor = 0; if (armor > 200) armor = 200;
++    }
++    if (reborn)
++    {
++        p->health = health;
++        p->armorpoints = armor;
++        p->armortype = armor > 100 ? 2 : (armor > 0 ? 1 : 0);
++    }
++    /* 맵이 시작될 때마다 무료판의 무기 6종: 주먹·전기톱·권총·산탄총·기관총·로켓 발사기 */
++    p->weaponowned[wp_fist] = p->weaponowned[wp_chainsaw] = p->weaponowned[wp_pistol] = true;
++    p->weaponowned[wp_shotgun] = p->weaponowned[wp_chaingun] = p->weaponowned[wp_missile] = true;
++    if (p->ammo[am_clip] < 100) p->ammo[am_clip] = 100;
++    if (p->ammo[am_shell] < 20) p->ammo[am_shell] = 20;
++    if (p->ammo[am_misl] < 10) p->ammo[am_misl] = 10;
++    if (god) p->cheats |= CF_GODMODE;
++    if (kfa)
++    {
++        p->armorpoints = deh_idkfa_armor;
++        p->armortype = deh_idkfa_armor_class;
++        for (i = 0; i < NUMWEAPONS; i++) p->weaponowned[i] = true;
++        for (i = 0; i < NUMAMMO; i++) p->ammo[i] = p->maxammo[i];
++        for (i = 0; i < NUMCARDS; i++) p->cards[i] = true;
++    }
++}
+ void P_SpawnPlayer (mapthing_t* mthing)
+ {
+     player_t*		p;
+@@ -706,8 +747,12 @@ void P_SpawnPlayer (mapthing_t* mthing)
+ 		
+     p = &players[mthing->type-1];
+ 
+-    if (p->playerstate == PST_REBORN)
++    {
++    boolean dh_reborn = (p->playerstate == PST_REBORN);
++    if (dh_reborn)
+ 	G_PlayerReborn (mthing->type-1);
++    DH_Apply(p, dh_reborn);
++    }
+ 
+     x 		= mthing->x << FRACBITS;
+     y 		= mthing->y << FRACBITS;
+diff --git a/src/doom/st_stuff.c b/src/doom/st_stuff.c
+index 95e24c1..31ead64 100644
+--- a/src/doom/st_stuff.c
++++ b/src/doom/st_stuff.c
+@@ -469,7 +469,7 @@ ST_Responder (event_t* ev)
+   // if a user keypress...
+   else if (ev->type == ev_keydown)
+   {
+-    if (!netgame && gameskill != sk_nightmare)
++    if (0) /* 동현둠: 게임 중 치트 입력은 받지 않는다 */
+     {
+       // 'dqd' cheat for toggleable god mode
+       if (cht_CheckCheat(&cheat_god, ev->data2))
+@@ -609,7 +609,7 @@ ST_Responder (event_t* ev)
+     }
+     
+     // 'clev' change-level cheat
+-    if (!netgame && cht_CheckCheat(&cheat_clev, ev->data2))
++    if (0 && !netgame && cht_CheckCheat(&cheat_clev, ev->data2))
+     {
+       char		buf[3];
+       int		epsd;
