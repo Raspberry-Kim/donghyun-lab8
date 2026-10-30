@@ -189,6 +189,7 @@ code.wrap{word-break:break-all}
 .focus-pill{margin-right:auto;font:500 12px var(--mono);padding:4px 10px;border-radius:999px;background:#2b2621;color:#a89c8c}
 .focus-pill[data-on=true]{background:#f2b705;color:#26211c}
 .keys{list-style:none;display:flex;flex-wrap:wrap;gap:6px 14px;padding:0;margin:12px 0 0;font-size:var(--text-xs);color:var(--muted)}
+.keys .key-sound{flex-basis:100%;padding-top:6px;border-top:1px dashed var(--line);line-height:1.6}.keys .key-sound b{color:var(--ink);font-weight:600}.snd-ico{display:inline-grid;place-items:center;width:18px;height:18px;margin-right:4px;border-radius:50%;background:var(--ink);color:var(--bg);font-size:11px;vertical-align:-3px}
 kbd{display:inline-block;min-width:1.7em;padding:1px 6px;margin-right:3px;border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;background:var(--paper);font:500 11px/1.6 var(--mono);color:var(--ink);text-align:center}
 .dh-btn kbd{border:0;background:transparent;min-width:0;padding:0;margin:0;color:inherit}
 .sortie-card{grid-template-columns:repeat(3,minmax(0,1fr))}
@@ -252,6 +253,7 @@ table.proto td:first-child{color:var(--ink);white-space:nowrap;font-family:var(-
           <li><kbd>1</kbd>–<kbd>5</kbd> 무기</li>
           <li><kbd>Tab</kbd> 지도</li>
           <li><kbd>Esc</kbd> 메뉴</li>
+          <li class="key-sound"><span class="snd-ico" aria-hidden="true">♪</span> 효과음은 게임 화면을 <b>마우스로 한 번 클릭</b>(휴대폰·태블릿은 손가락으로 한 번 누르기)하거나 게임 안에서 아무 키나 누르면 나기 시작한다.</li>
         </ul>
       </div>
       <div class="side-col">
