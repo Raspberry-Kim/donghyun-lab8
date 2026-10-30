@@ -1,4 +1,4 @@
-/* 동현둠: 동현랭으로 스테이지·난이도·체력·방어구·IDDQD·IDKFA를 정하고, 둠 무료판 엔진을 띄운다. */
+/* 동현둠: 동현랭으로 스테이지·난이도·체력·방어구·IDDQD·IDKFA를 정하고, 둠 Shareware 엔진을 띄운다. */
 (function(){
 const $=s=>document.querySelector(s);
 
@@ -81,10 +81,9 @@ function setCard(s){
 const result=(t,kind)=>{const r=$('#result');r.textContent=t;r.dataset.kind=kind||'';};
 const status=(t,kind)=>{const s=$('#status');s.textContent=t;s.dataset.kind=kind||'';};
 
-/* ---------- 휴대폰·태블릿: 엔진을 띄우지 않는다 ---------- */
+/* ---------- 휴대폰·태블릿: 엔진은 띄우되, 키보드가 필요하다고 강조한다 ---------- */
 const TOUCH_ONLY=matchMedia('(pointer:coarse)').matches&&!matchMedia('(any-pointer:fine)').matches;
 document.documentElement.classList.toggle('touch-only',TOUCH_ONLY);
-if(TOUCH_ONLY){$('#poster-run').textContent='데스크톱에서 출전할 수 있다';$('#poster-run').disabled=true;document.querySelector('.doom-poster p').textContent='이 기기에서는 게임을 띄우지 않는다. 키보드가 있는 컴퓨터에서 열어 보자.';status('휴대폰·태블릿에서는 게임을 띄우지 않는다');}
 
 /* ---------- 엔진 틀 ---------- */
 let frame=null, current=null;
@@ -121,7 +120,7 @@ addEventListener('message',e=>{
 code.addEventListener('focus',()=>setFocus(false));
 $('#focus-game').onclick=()=>giveFocus();
 $('#stop').onclick=()=>stop(false);
-$('#full').onclick=()=>{if(frame&&frame.requestFullscreen)frame.requestFullscreen().then(giveFocus).catch(()=>{});};
+$('#full').onclick=()=>{if(!frame)return;if(frame.requestFullscreen)frame.requestFullscreen().then(giveFocus).catch(()=>{});else if(frame.webkitRequestFullscreen){frame.webkitRequestFullscreen();giveFocus();}};
 
 function start(){
   let out;
@@ -130,8 +129,7 @@ function start(){
   const p=parseSortie(out);
   if(p.err){ result('동현둠 규약 오류: '+p.err,'error'); status('규약 오류','error'); return; }
   const s=p.set; setCard(s);
-  if(TOUCH_ONLY){ result(`설정은 맞다: E1M${s.m} · 난이도 ${s.k} · 체력 ${s.h} · 방어구 ${s.f?200:s.a}. 동현둠은 키보드 전용이라 휴대폰·태블릿에서는 게임을 띄우지 않는다. 컴퓨터에서 같은 코드로 출전해 보자.`); status('데스크톱 전용 · 설정만 확인했다'); return; }
-  result((p.note?p.note+' ':'')+`E1M${s.m} ${MAPS[s.m-1]} · 난이도 ${s.k} · 체력 ${s.h} · 방어구 ${s.f?200:s.a}${s.g?' · IDDQD 무적':''}${s.f?' · IDKFA 무기·열쇠':''}. 이 설정으로 나선다. 게임 화면을 누르면 키보드가 게임으로 간다.`);
+  result((p.note?p.note+' ':'')+`E1M${s.m} ${MAPS[s.m-1]} · 난이도 ${s.k} · 체력 ${s.h} · 방어구 ${s.f?200:s.a}${s.g?' · IDDQD 무적':''}${s.f?' · IDKFA 무기·열쇠':''}. 이 설정으로 나선다. 게임 화면을 누르면 키보드가 게임으로 간다.${TOUCH_ONLY?' 이 기기에서는 블루투스 키보드를 연결해야 움직일 수 있다.':''}`);
   launch(s);
 }
 $('#poster-run').onclick=()=>start();

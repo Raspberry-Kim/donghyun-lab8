@@ -31,6 +31,7 @@
     setStatus:function(){}
   };
   canvas.addEventListener("mousedown",function(){canvas.focus()});
+  canvas.addEventListener("touchstart",function(){canvas.focus()},{passive:true});
   // 브라우저 단축키(스페이스 스크롤, 방향키)가 바깥 페이지로 새지 않게 한다
   window.addEventListener("keydown",function(e){if([9,32,37,38,39,40].indexOf(e.keyCode)>=0)e.preventDefault();});
 })();

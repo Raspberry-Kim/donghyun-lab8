@@ -191,4 +191,3 @@ table.proto td:first-child{color:var(--ink);white-space:nowrap;font-family:var(-
 .maker-note{margin-top:16px;padding:20px 0 8px;border-top:1px solid var(--line);max-width:850px}
 .maker-note p{font-size:var(--text-sm)}
 @media(max-width:480px){.sortie-card{grid-template-columns:1fr 1fr}.doom-poster-in{padding:14px;gap:8px}.doom-poster p{font-size:var(--text-xs)}}
-.touch-only .doom-bar,.touch-only .keys{display:none}

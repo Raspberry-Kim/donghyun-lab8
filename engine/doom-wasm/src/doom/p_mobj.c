@@ -709,7 +709,7 @@ static void DH_Apply(player_t *p, boolean reborn)
         p->armorpoints = armor;
         p->armortype = armor > 100 ? 2 : (armor > 0 ? 1 : 0);
     }
-    /* 맵이 시작될 때마다 무료판의 무기 6종: 주먹·전기톱·권총·산탄총·기관총·로켓 발사기 */
+    /* 맵이 시작될 때마다 Shareware 무기 6종: 주먹·전기톱·권총·산탄총·기관총·로켓 발사기 */
     p->weaponowned[wp_fist] = p->weaponowned[wp_chainsaw] = p->weaponowned[wp_pistol] = true;
     p->weaponowned[wp_shotgun] = p->weaponowned[wp_chaingun] = p->weaponowned[wp_missile] = true;
     if (p->ammo[am_clip] < 100) p->ammo[am_clip] = 100;

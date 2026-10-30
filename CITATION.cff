@@ -1,0 +1,56 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it using the metadata below."
+title: "Donghyundoom (동현둠): a browser laboratory for the shareware DOOM Episode 1, with the stage, skill, health, armour and the IDDQD and IDKFA cheats set through the esoteric language Donghyun-lang"
+type: software
+version: "0.1"
+date-released: "2026-10-30"
+authors:
+  - family-names: Kim
+    given-names: Dong Hyun
+    orcid: "https://orcid.org/0000-0001-9883-0229"
+    affiliation: "Inha University College of Medicine"
+license: GPL-2.0-only
+repository-code: "https://github.com/Raspberry-Kim/donghyun-lab8"
+url: "https://raspberry-kim.github.io/donghyun-lab8/"
+abstract: >-
+  Donghyundoom is a browser-based, noncommercial hobby project that runs the
+  nine maps of the shareware DOOM Episode 1, Knee-Deep in the Dead, through a
+  modified build of Cloudflare's doom-wasm port of Chocolate Doom. The starting
+  map (1-9), skill (1-5), health (1-200), armour (0-200) and the IDDQD and
+  IDKFA cheats (0 or 1) are chosen by six integers printed by a program written
+  in the esoteric programming language Donghyun-lang; cheats typed during play
+  are disabled. All six shareware weapons are given at the start of every map,
+  and play uses the keyboard only. The repository is distributed under the GNU
+  GPL 2.0 together with the modified engine source; the unmodified shareware
+  DOOM1.WAD (v1.9) is (c) id Software and is not covered by the GPL. DOOM is a
+  trademark of id Software; this project is not affiliated with or endorsed by
+  id Software, ZeniMax, Bethesda, Microsoft or Cloudflare. See CREDITS.md.
+keywords:
+  - DOOM
+  - shareware
+  - WebAssembly
+  - Chocolate Doom
+  - esoteric programming language
+references:
+  - type: software
+    title: "Donghyun-lang (동현랭): a Korean esoteric programming language with a browser playground"
+    authors:
+      - family-names: Kim
+        given-names: Dong Hyun
+        orcid: "https://orcid.org/0000-0001-9883-0229"
+        affiliation: "Inha University College of Medicine"
+    version: "1.53"
+    license: MIT
+    repository-code: "https://github.com/Raspberry-Kim/donghyun-lang"
+  - type: software
+    title: "doom-wasm"
+    authors:
+      - name: Cloudflare
+    license: GPL-2.0-only
+    repository-code: "https://github.com/cloudflare/doom-wasm"
+  - type: software
+    title: "Chocolate Doom"
+    authors:
+      - name: "Simon Howard and contributors"
+    license: GPL-2.0-only
+    repository-code: "https://github.com/chocolate-doom/chocolate-doom"

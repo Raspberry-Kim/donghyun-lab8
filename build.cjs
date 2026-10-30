@@ -1,5 +1,5 @@
 // 동현둠 묶기: src의 HTML·CSS·JS를 index.html 한 장으로 합친다(글꼴·아이콘 내장).
-// 게임 엔진(doom/websockets-doom.js·.wasm)과 무료판 자료(doom/doom1.wad)는 크기 때문에 doom/ 폴더에 따로 둔다.
+// 게임 엔진(doom/websockets-doom.js·.wasm)과 Shareware 자료(doom/doom1.wad)는 크기 때문에 doom/ 폴더에 따로 둔다.
 const fs=require('fs'),path=require('path');
 const {copyIcons}=require('./icon-files.cjs');
 const root=__dirname,out=path.join(root,'dist'),src=n=>fs.readFileSync(path.join(root,'src',n),'utf8');
