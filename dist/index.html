@@ -177,6 +177,10 @@ code.wrap{word-break:break-all}
 .doom-wrap{background:#141210;border:1px solid #2c2620;border-radius:14px;padding:10px;box-shadow:var(--shadow)}
 .doom-screen{position:relative;aspect-ratio:4/3;background:#000;border-radius:6px;overflow:hidden}
 .doom-frame{position:absolute;inset:0;width:100%;height:100%;border:0;display:block;background:#000}
+.doom-screen:fullscreen{aspect-ratio:auto;border-radius:0;width:100vw;height:100vh}.doom-screen:-webkit-full-screen{aspect-ratio:auto;border-radius:0;width:100vw;height:100vh}
+.exit-full{position:absolute;top:12px;right:12px;z-index:5;min-height:36px;padding:0 14px;border-radius:8px;border:1px solid rgba(255,255,255,.35);background:rgba(20,18,16,.72);color:#fff;font:600 13px var(--body);opacity:.55;transition:opacity .15s}
+.exit-full:hover,.exit-full:focus-visible{opacity:1;background:rgba(20,18,16,.9)}
+.full-hint{position:absolute;left:50%;top:12px;transform:translateX(-50%);z-index:4;margin:0;max-width:calc(100% - 240px);padding:8px 14px;border-radius:8px;background:rgba(20,18,16,.85);color:#efe6d8;font:500 13px/1.5 var(--body);text-align:center;pointer-events:none}.full-hint b{color:#f2b705}
 .doom-poster{position:absolute;inset:0;display:grid;place-items:center;text-align:center;color:#e9dcc8;background:radial-gradient(ellipse at 50% 120%,#5a1d10 0,#2a0d08 38%,#0b0706 75%)}
 .doom-poster-in{max-width:440px;padding:24px;display:flex;flex-direction:column;align-items:center;gap:12px}
 .doom-tag{font:500 11px var(--mono);letter-spacing:.12em;color:#d8a35a}
@@ -219,7 +223,7 @@ table.proto td:first-child{color:var(--ink);white-space:nowrap;font-family:var(-
   </section>
   <nav class="tabs" aria-label="동현둠 메뉴"><button class="active" data-tab="play" aria-current="page">출전</button><button data-tab="protocol">동현둠 규약</button><button data-tab="rules">조작과 맵</button><button data-tab="about">엔진과 출처</button><span>설정은 동현랭으로, 싸움은 키보드로</span></nav>
   <div class="getting-started"><p><strong>처음이라면?</strong> 예제를 고르고 <b>출전</b>을 눌러 보자. 게임 화면을 누르면 키보드가 게임으로 가고, 코드 칸을 누르면 다시 코드로 온다.</p><a href="https://raspberry-kim.github.io/donghyun-lang/" target="_blank" rel="noopener">동현랭 배우기 · 실행기 ↗</a></div>
-  <p class="mobile-note" id="mobile-note" role="note"><strong>키보드 필수</strong> 동현둠은 실제 키보드로만 움직인다. 화면 단추나 터치 조작은 없다. 휴대폰·태블릿은 블루투스 키보드를 연결하면 출전할 수 있다. 화면에 뜨는 가상 키보드로는 움직일 수 없다.</p>
+  <p class="mobile-note" id="mobile-note" role="note"><strong>키보드 필수</strong> 동현둠은 실제 키보드로만 움직인다. 화면 단추나 터치 조작은 없다. 휴대폰·태블릿은 블루투스 키보드를 연결하면 출전할 수 있다. 데스크톱 화면에서의 이용을 권장한다.</p>
 
   <section class="tab-panel" id="tab-play">
     <div class="play-grid">
@@ -227,6 +231,8 @@ table.proto td:first-child{color:var(--ink);white-space:nowrap;font-family:var(-
         <div class="section-title"><h2><span>A</span> 전장</h2><span id="status" role="status">출전을 기다린다</span></div>
         <div class="doom-wrap">
           <div class="doom-screen" id="screen">
+            <button id="exit-full" class="exit-full" type="button" hidden aria-label="전체 화면 닫기">✕ 전체 화면 닫기</button>
+            <p class="full-hint" id="full-hint" hidden>원래 화면으로 돌아오려면 오른쪽 위 <b>✕ 전체 화면 닫기</b>를 누른다. Esc는 게임 메뉴를 연다.</p>
             <div class="doom-poster" id="poster">
               <div class="doom-poster-in">
                 <span class="doom-tag">KNEE-DEEP IN THE DEAD · 키보드 필수</span>
@@ -238,7 +244,6 @@ table.proto td:first-child{color:var(--ink);white-space:nowrap;font-family:var(-
           </div>
           <div class="doom-bar">
             <span class="focus-pill" id="focus-pill" data-on="false">키보드: 코드</span>
-            <button id="focus-game" class="dh-btn" disabled>게임에 키보드 주기</button>
             <button id="stop" class="dh-btn" disabled>끝내기</button>
             <button id="full" class="dh-btn" disabled>전체 화면</button>
           </div>
@@ -332,7 +337,8 @@ table.proto td:first-child{color:var(--ink);white-space:nowrap;font-family:var(-
             <tr><td><kbd>Esc</kbd></td><td>메뉴(새 게임·소리·끝내기)</td></tr>
           </tbody>
         </table></div>
-        <p><strong>반드시 실제 키보드가 있어야 한다.</strong> 화면 단추나 터치 조작은 없다. 휴대폰·태블릿은 블루투스 키보드를 연결하면 컴퓨터와 같이 싸울 수 있고, 화면에 뜨는 가상 키보드로는 움직일 수 없다. 마우스는 쓰지 않는다. 게임 화면을 한 번 누르면 키보드가 게임으로 가고, 위 띠의 표시가 「키보드: 게임」으로 바뀐다. 코드 칸을 누르면 다시 코드로 돌아온다.</p>
+        <p><strong>반드시 실제 키보드가 있어야 한다.</strong> 화면 단추나 터치 조작은 없다. 휴대폰·태블릿은 블루투스 키보드를 연결하면 컴퓨터와 같이 싸울 수 있다. 데스크톱 화면에서의 이용을 권장한다. 마우스는 쓰지 않는다. 게임 화면을 한 번 누르면 키보드가 게임으로 가고, 아래 띠의 표시가 「키보드: 게임」으로 바뀐다. 코드 칸을 누르면 다시 코드로 돌아온다.</p>
+        <p><strong>전체 화면</strong>에서는 Esc가 게임 메뉴를 연다. 원래 화면으로 돌아오려면 오른쪽 위 <b>✕ 전체 화면 닫기</b>를 누른다.</p>
         <p>소리는 효과음만 난다. 브라우저에서 음악 장치(OPL) 초기화가 멈추는 문제가 있어 음악은 껐다.</p>
       </div>
       <div>
@@ -727,14 +733,15 @@ function launch(s){
   frame.src='./doom/game.html#'+hash;
   frame.addEventListener('load',()=>giveFocus());
   poster.hidden=true; screen.append(frame);
-  ['#focus-game','#stop','#full'].forEach(id=>$(id).disabled=false);
+  ['#stop','#full'].forEach(id=>$(id).disabled=false);
   status(`E1M${s.m} ${MAPS[s.m-1]}을 불러오는 중`);
 }
 function giveFocus(){ if(!frame)return; try{frame.contentWindow.focus();const c=frame.contentDocument&&frame.contentDocument.getElementById('canvas');if(c)c.focus();}catch(e){frame.focus();} }
 function stop(silent){
+  if(isFull()) exitFull();
   if(frame){frame.remove();frame=null;}
   poster.hidden=false; setFocus(false);
-  ['#focus-game','#stop','#full'].forEach(id=>$(id).disabled=true);
+  ['#stop','#full'].forEach(id=>$(id).disabled=true);
   if(!silent) status('끝냈다 · 다시 출전할 수 있다');
 }
 addEventListener('message',e=>{
@@ -746,9 +753,19 @@ addEventListener('message',e=>{
   else if(d.state==='error') status('엔진 오류: '+d.detail,'error');
 });
 code.addEventListener('focus',()=>setFocus(false));
-$('#focus-game').onclick=()=>giveFocus();
 $('#stop').onclick=()=>stop(false);
-$('#full').onclick=()=>{if(!frame)return;if(frame.requestFullscreen)frame.requestFullscreen().then(giveFocus).catch(()=>{});else if(frame.webkitRequestFullscreen){frame.webkitRequestFullscreen();giveFocus();}};
+/* 전체 화면: 게임 틀이 아니라 화면 칸 전체를 띄워 '닫기' 단추를 함께 보인다. 게임 안의 Esc는 둠 메뉴를 연다. */
+const fullEl=()=>document.fullscreenElement||document.webkitFullscreenElement;
+const isFull=()=>fullEl()===screen;
+function exitFull(){ (document.exitFullscreen||document.webkitExitFullscreen||(()=>{})).call(document); }
+let hintTimer=0;
+function onFull(){ const on=isFull(); $('#exit-full').hidden=!on; $('#full').textContent=on?'전체 화면 닫기':'전체 화면';
+  clearTimeout(hintTimer); $('#full-hint').hidden=!on; if(on) hintTimer=setTimeout(()=>$('#full-hint').hidden=true,5000);
+  setTimeout(giveFocus,50); }
+document.addEventListener('fullscreenchange',onFull); document.addEventListener('webkitfullscreenchange',onFull);
+$('#exit-full').onclick=exitFull;
+$('#full').onclick=()=>{ if(!frame)return; if(isFull()) return exitFull();
+  if(screen.requestFullscreen) screen.requestFullscreen().catch(()=>{}); else if(screen.webkitRequestFullscreen) screen.webkitRequestFullscreen(); };
 
 function start(){
   let out;

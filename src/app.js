@@ -99,14 +99,15 @@ function launch(s){
   frame.src='./doom/game.html#'+hash;
   frame.addEventListener('load',()=>giveFocus());
   poster.hidden=true; screen.append(frame);
-  ['#focus-game','#stop','#full'].forEach(id=>$(id).disabled=false);
+  ['#stop','#full'].forEach(id=>$(id).disabled=false);
   status(`E1M${s.m} ${MAPS[s.m-1]}을 불러오는 중`);
 }
 function giveFocus(){ if(!frame)return; try{frame.contentWindow.focus();const c=frame.contentDocument&&frame.contentDocument.getElementById('canvas');if(c)c.focus();}catch(e){frame.focus();} }
 function stop(silent){
+  if(isFull()) exitFull();
   if(frame){frame.remove();frame=null;}
   poster.hidden=false; setFocus(false);
-  ['#focus-game','#stop','#full'].forEach(id=>$(id).disabled=true);
+  ['#stop','#full'].forEach(id=>$(id).disabled=true);
   if(!silent) status('끝냈다 · 다시 출전할 수 있다');
 }
 addEventListener('message',e=>{
@@ -118,9 +119,19 @@ addEventListener('message',e=>{
   else if(d.state==='error') status('엔진 오류: '+d.detail,'error');
 });
 code.addEventListener('focus',()=>setFocus(false));
-$('#focus-game').onclick=()=>giveFocus();
 $('#stop').onclick=()=>stop(false);
-$('#full').onclick=()=>{if(!frame)return;if(frame.requestFullscreen)frame.requestFullscreen().then(giveFocus).catch(()=>{});else if(frame.webkitRequestFullscreen){frame.webkitRequestFullscreen();giveFocus();}};
+/* 전체 화면: 게임 틀이 아니라 화면 칸 전체를 띄워 '닫기' 단추를 함께 보인다. 게임 안의 Esc는 둠 메뉴를 연다. */
+const fullEl=()=>document.fullscreenElement||document.webkitFullscreenElement;
+const isFull=()=>fullEl()===screen;
+function exitFull(){ (document.exitFullscreen||document.webkitExitFullscreen||(()=>{})).call(document); }
+let hintTimer=0;
+function onFull(){ const on=isFull(); $('#exit-full').hidden=!on; $('#full').textContent=on?'전체 화면 닫기':'전체 화면';
+  clearTimeout(hintTimer); $('#full-hint').hidden=!on; if(on) hintTimer=setTimeout(()=>$('#full-hint').hidden=true,5000);
+  setTimeout(giveFocus,50); }
+document.addEventListener('fullscreenchange',onFull); document.addEventListener('webkitfullscreenchange',onFull);
+$('#exit-full').onclick=exitFull;
+$('#full').onclick=()=>{ if(!frame)return; if(isFull()) return exitFull();
+  if(screen.requestFullscreen) screen.requestFullscreen().catch(()=>{}); else if(screen.webkitRequestFullscreen) screen.webkitRequestFullscreen(); };
 
 function start(){
   let out;

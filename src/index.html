@@ -22,7 +22,7 @@ __SERIES_NAV__
   </section>
   <nav class="tabs" aria-label="동현둠 메뉴"><button class="active" data-tab="play" aria-current="page">출전</button><button data-tab="protocol">동현둠 규약</button><button data-tab="rules">조작과 맵</button><button data-tab="about">엔진과 출처</button><span>설정은 동현랭으로, 싸움은 키보드로</span></nav>
   <div class="getting-started"><p><strong>처음이라면?</strong> 예제를 고르고 <b>출전</b>을 눌러 보자. 게임 화면을 누르면 키보드가 게임으로 가고, 코드 칸을 누르면 다시 코드로 온다.</p><a href="https://raspberry-kim.github.io/donghyun-lang/" target="_blank" rel="noopener">동현랭 배우기 · 실행기 ↗</a></div>
-  <p class="mobile-note" id="mobile-note" role="note"><strong>키보드 필수</strong> 동현둠은 실제 키보드로만 움직인다. 화면 단추나 터치 조작은 없다. 휴대폰·태블릿은 블루투스 키보드를 연결하면 출전할 수 있다. 화면에 뜨는 가상 키보드로는 움직일 수 없다.</p>
+  <p class="mobile-note" id="mobile-note" role="note"><strong>키보드 필수</strong> 동현둠은 실제 키보드로만 움직인다. 화면 단추나 터치 조작은 없다. 휴대폰·태블릿은 블루투스 키보드를 연결하면 출전할 수 있다. 데스크톱 화면에서의 이용을 권장한다.</p>
 
   <section class="tab-panel" id="tab-play">
     <div class="play-grid">
@@ -30,6 +30,8 @@ __SERIES_NAV__
         <div class="section-title"><h2><span>A</span> 전장</h2><span id="status" role="status">출전을 기다린다</span></div>
         <div class="doom-wrap">
           <div class="doom-screen" id="screen">
+            <button id="exit-full" class="exit-full" type="button" hidden aria-label="전체 화면 닫기">✕ 전체 화면 닫기</button>
+            <p class="full-hint" id="full-hint" hidden>원래 화면으로 돌아오려면 오른쪽 위 <b>✕ 전체 화면 닫기</b>를 누른다. Esc는 게임 메뉴를 연다.</p>
             <div class="doom-poster" id="poster">
               <div class="doom-poster-in">
                 <span class="doom-tag">KNEE-DEEP IN THE DEAD · 키보드 필수</span>
@@ -41,7 +43,6 @@ __SERIES_NAV__
           </div>
           <div class="doom-bar">
             <span class="focus-pill" id="focus-pill" data-on="false">키보드: 코드</span>
-            <button id="focus-game" class="dh-btn" disabled>게임에 키보드 주기</button>
             <button id="stop" class="dh-btn" disabled>끝내기</button>
             <button id="full" class="dh-btn" disabled>전체 화면</button>
           </div>
@@ -135,7 +136,8 @@ __SERIES_NAV__
             <tr><td><kbd>Esc</kbd></td><td>메뉴(새 게임·소리·끝내기)</td></tr>
           </tbody>
         </table></div>
-        <p><strong>반드시 실제 키보드가 있어야 한다.</strong> 화면 단추나 터치 조작은 없다. 휴대폰·태블릿은 블루투스 키보드를 연결하면 컴퓨터와 같이 싸울 수 있고, 화면에 뜨는 가상 키보드로는 움직일 수 없다. 마우스는 쓰지 않는다. 게임 화면을 한 번 누르면 키보드가 게임으로 가고, 위 띠의 표시가 「키보드: 게임」으로 바뀐다. 코드 칸을 누르면 다시 코드로 돌아온다.</p>
+        <p><strong>반드시 실제 키보드가 있어야 한다.</strong> 화면 단추나 터치 조작은 없다. 휴대폰·태블릿은 블루투스 키보드를 연결하면 컴퓨터와 같이 싸울 수 있다. 데스크톱 화면에서의 이용을 권장한다. 마우스는 쓰지 않는다. 게임 화면을 한 번 누르면 키보드가 게임으로 가고, 아래 띠의 표시가 「키보드: 게임」으로 바뀐다. 코드 칸을 누르면 다시 코드로 돌아온다.</p>
+        <p><strong>전체 화면</strong>에서는 Esc가 게임 메뉴를 연다. 원래 화면으로 돌아오려면 오른쪽 위 <b>✕ 전체 화면 닫기</b>를 누른다.</p>
         <p>소리는 효과음만 난다. 브라우저에서 음악 장치(OPL) 초기화가 멈추는 문제가 있어 음악은 껐다.</p>
       </div>
       <div>
