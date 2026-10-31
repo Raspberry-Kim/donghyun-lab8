@@ -122,8 +122,12 @@ code.addEventListener('focus',()=>setFocus(false));
 $('#stop').onclick=()=>stop(false);
 /* 전체 화면: 게임 틀이 아니라 화면 칸 전체를 띄워 '닫기' 단추를 함께 보인다. 게임 안의 Esc는 둠 메뉴를 연다. */
 const fullEl=()=>document.fullscreenElement||document.webkitFullscreenElement;
-const isFull=()=>fullEl()===screen;
-function exitFull(){ (document.exitFullscreen||document.webkitExitFullscreen||(()=>{})).call(document); }
+/* iPhone Safari처럼 요소 전체 화면을 못 쓰는 곳에서는 화면 칸을 창 가득 채운다(유사 전체 화면). */
+const canNativeFull=!!((document.fullscreenEnabled||document.webkitFullscreenEnabled)&&(screen.requestFullscreen||screen.webkitRequestFullscreen));
+const isPseudo=()=>screen.classList.contains('pseudo-full');
+const isFull=()=>fullEl()===screen||isPseudo();
+function setPseudo(on){ screen.classList.toggle('pseudo-full',on); document.documentElement.classList.toggle('pseudo-full-on',on); onFull(); }
+function exitFull(){ if(isPseudo()) return setPseudo(false); (document.exitFullscreen||document.webkitExitFullscreen||(()=>{})).call(document); }
 let hintTimer=0;
 function onFull(){ const on=isFull(); $('#exit-full').hidden=!on; $('#full').textContent=on?'전체 화면 닫기':'전체 화면';
   clearTimeout(hintTimer); $('#full-hint').hidden=!on; if(on) hintTimer=setTimeout(()=>$('#full-hint').hidden=true,5000);
@@ -131,7 +135,9 @@ function onFull(){ const on=isFull(); $('#exit-full').hidden=!on; $('#full').tex
 document.addEventListener('fullscreenchange',onFull); document.addEventListener('webkitfullscreenchange',onFull);
 $('#exit-full').onclick=exitFull;
 $('#full').onclick=()=>{ if(!frame)return; if(isFull()) return exitFull();
-  if(screen.requestFullscreen) screen.requestFullscreen().catch(()=>{}); else if(screen.webkitRequestFullscreen) screen.webkitRequestFullscreen(); };
+  if(!canNativeFull) return setPseudo(true);
+  try{ const r=screen.requestFullscreen?screen.requestFullscreen():screen.webkitRequestFullscreen();
+    if(r&&r.catch) r.catch(()=>setPseudo(true)); }catch(e){ setPseudo(true); } };
 
 function start(){
   let out;
