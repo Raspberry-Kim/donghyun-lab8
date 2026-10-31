@@ -99,7 +99,7 @@ node qa/core-tests.cjs    # 예제 출력, 규약 판정, WAD MD5 확인
 
 ## 라이선스와 권리
 
-- **저장소 전체(동현둠 화면·문서·엔진 수정 포함):** GNU GPL 2.0 ([COPYING](COPYING)). 엔진과 함께 나가기 때문이다.
+- **저장소 전체(동현둠 화면·문서·엔진 수정 포함):** GNU GPL 2.0 또는 그 이후 판 ([COPYING](COPYING)). 엔진과 함께 나가기 때문이다.
 - **동현랭 실행기(`src/donghyun.js`):** MIT ([licenses/DONGHYUN-MIT.txt](licenses/DONGHYUN-MIT.txt)).
 - **`doom/doom1.wad`:** © 1994 id Software. GPL이 아니다. 고치지 않은 Shareware v1.9 원래 파일(MD5 `f0cefca49926d00903cf57551d901abe`)이며, 고치지 않으면 나눌 수 있지만 돈을 받고 나눌 수 없다 ([licenses/DOOM1-WAD-LICENSE.txt](licenses/DOOM1-WAD-LICENSE.txt)).
 - **글꼴:** Black Han Sans, 나눔고딕코딩, Pretendard — 각각 SIL OFL 1.1 (`licenses/`).

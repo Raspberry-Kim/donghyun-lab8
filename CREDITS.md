@@ -2,9 +2,9 @@
 
 ## 게임 엔진
 
-- **doom-wasm** — Cloudflare, GNU GPL 2.0. https://github.com/cloudflare/doom-wasm (커밋 `65e0d3ae2ffa604155eebd96ed40da6567bd08f4`)
-- **Chocolate Doom** — Simon Howard 외, GNU GPL 2.0. https://github.com/chocolate-doom/chocolate-doom
-- **DOOM 소스 코드** — id Software, GNU GPL 2.0. https://github.com/id-Software/DOOM
+- **doom-wasm** — Cloudflare, GNU GPL 2.0 또는 그 이후 판. https://github.com/cloudflare/doom-wasm (커밋 `65e0d3ae2ffa604155eebd96ed40da6567bd08f4`)
+- **Chocolate Doom** — Simon Howard 외, GNU GPL 2.0 또는 그 이후 판. https://github.com/chocolate-doom/chocolate-doom
+- **DOOM 소스 코드** — id Software, GNU GPL 2.0 또는 그 이후 판. https://github.com/id-Software/DOOM
 - 동현둠은 엔진을 고쳤다. 동현랭 값을 받는 명령줄 인자(`-dhhealth` `-dharmor` `-dhgod` `-dhkfa`), 맵마다 무기 6종과 최소 탄약(총알 100·산탄 20·로켓 10) 주기, 게임 중 치트 입력 끄기(IDDT 포함), 빌드 설정이다. 고친 소스 전체는 `engine/doom-wasm/`, 고친 부분은 `engine/donghyun-doom.patch`, 빌드 방법(Emscripten 3.1.1)은 `engine/build.sh`에 있다. GPL 2.0에 따라 고친 소스를 함께 나눈다.
 
 ## 게임 자료
@@ -28,7 +28,7 @@
 
 ## 이용 조건
 
-- **동현둠 저장소 전체:** GNU GPL 2.0 ([COPYING](COPYING)). 저작권 © 2026 김동현(동현둠이 새로 만든 부분).
+- **동현둠 저장소 전체:** GNU GPL 2.0 또는 그 이후 판 ([COPYING](COPYING)). 엔진 소스가 「2판 또는 (원하면) 그 이후 판」으로 나왔기 때문이다. 저작권 © 2026 김동현(동현둠이 새로 만든 부분).
 - **동현랭 실행기:** MIT ([licenses/DONGHYUN-MIT.txt](licenses/DONGHYUN-MIT.txt)).
 - **DOOM1.WAD:** id Software의 사용 허락(위).
 - **글꼴:** Black Han Sans, Nanum Gothic Coding, Pretendard — SIL Open Font License 1.1 ([licenses](licenses/)).

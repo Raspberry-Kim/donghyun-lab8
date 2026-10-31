@@ -10,7 +10,7 @@ authors:
     given-names: Dong Hyun
     orcid: "https://orcid.org/0000-0001-9883-0229"
     affiliation: "Inha University College of Medicine"
-license: GPL-2.0-only
+license: GPL-2.0-or-later
 repository-code: "https://github.com/Raspberry-Kim/donghyun-lab8"
 url: "https://raspberry-kim.github.io/donghyun-lab8/"
 abstract: >-
@@ -22,7 +22,7 @@ abstract: >-
   in the esoteric programming language Donghyun-lang; cheats typed during play
   are disabled. All six shareware weapons are given at the start of every map,
   and play uses the keyboard only. The repository is distributed under the GNU
-  GPL 2.0 together with the modified engine source; the unmodified shareware
+  GPL 2.0 or later together with the modified engine source; the unmodified shareware
   DOOM1.WAD (v1.9) is (c) id Software and is not covered by the GPL. DOOM is a
   trademark of id Software; this project is not affiliated with or endorsed by
   id Software, ZeniMax, Bethesda, Microsoft or Cloudflare. See CREDITS.md.
@@ -47,11 +47,11 @@ references:
     title: "doom-wasm"
     authors:
       - name: Cloudflare
-    license: GPL-2.0-only
+    license: GPL-2.0-or-later
     repository-code: "https://github.com/cloudflare/doom-wasm"
   - type: software
     title: "Chocolate Doom"
     authors:
       - name: "Simon Howard and contributors"
-    license: GPL-2.0-only
+    license: GPL-2.0-or-later
     repository-code: "https://github.com/chocolate-doom/chocolate-doom"
