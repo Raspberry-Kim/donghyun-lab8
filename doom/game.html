@@ -25,15 +25,59 @@
       ENV.SDL_EMSCRIPTEN_KEYBOARD_ELEMENT="#canvas";
       Module.FS.createPreloadedFile("","doom1.wad","doom1.wad",true,true);
       Module.FS.createPreloadedFile("","default.cfg","default.cfg",true,true);
+      restoreSaves();
     }],
     onRuntimeInitialized:function(){msg.remove();canvas.focus();tell("started");callMain(args);window.dhStarted=true;},
     print:function(t){console.log(t)}, printErr:function(t){console.log(t)},
     setStatus:function(){}
   };
+  // 저장 보존: 엔진은 저장 파일(doomsav0–5.dsg)을 메모리에만 쓴다. 그 파일을 이 브라우저의 IndexedDB에 옮겨 두고,
+  // 다음에 열 때 엔진이 시작하기 전에 제자리에 되돌린다. 엔진(wasm)은 고치지 않는다.
+  var DB="donghyun-doom", ST="saves", ROOT="/libsdl", seen={};
+  function idb(){return new Promise(function(ok,no){
+    if(!window.indexedDB)return no(new Error("IndexedDB 없음"));
+    var r=indexedDB.open(DB,1);
+    r.onupgradeneeded=function(){r.result.createObjectStore(ST);};
+    r.onsuccess=function(){ok(r.result);}; r.onerror=function(){no(r.error);};
+  });}
+  function mkdirs(path){var d="";path.split("/").slice(1,-1).forEach(function(x){d+="/"+x;try{Module.FS.mkdir(d);}catch(e){}});}
+  function restoreSaves(){
+    Module.addRunDependency("dh-saves");
+    var done=function(){Module.removeRunDependency("dh-saves");};
+    idb().then(function(db){
+      var t=db.transaction(ST,"readonly"), os=t.objectStore(ST), c=os.openCursor();
+      c.onsuccess=function(){var cur=c.result;if(!cur)return;
+        try{mkdirs(cur.key);Module.FS.writeFile(cur.key,new Uint8Array(cur.value));var st=Module.FS.stat(cur.key);seen[cur.key]=st.size+":"+(+st.mtime);}catch(e){}
+        cur.continue();};
+      t.oncomplete=function(){db.close();done();}; t.onerror=t.onabort=function(){done();};
+    }).catch(done);
+  }
+  function findSaves(dir,out){
+    var names;try{names=Module.FS.readdir(dir);}catch(e){return out;}
+    names.forEach(function(n){if(n==="."||n==="..")return;var f=dir+"/"+n,st;
+      try{st=Module.FS.stat(f);}catch(e){return;}
+      if(Module.FS.isDir(st.mode))findSaves(f,out);
+      else if(/^doomsav\d\.dsg$/.test(n))out.push({path:f,stamp:st.size+":"+(+st.mtime)});});
+    return out;
+  }
+  function syncSaves(){
+    if(!window.dhStarted||!window.Module||!Module.FS)return;
+    var changed=findSaves(ROOT,[]).filter(function(f){return seen[f.path]!==f.stamp;}); // 되돌려 놓은 파일은 다시 쓰지 않는다
+    if(!changed.length)return;
+    idb().then(function(db){
+      var t=db.transaction(ST,"readwrite"), os=t.objectStore(ST);
+      changed.forEach(function(f){try{var b=Module.FS.readFile(f.path);os.put(b.buffer.slice(b.byteOffset,b.byteOffset+b.byteLength),f.path);seen[f.path]=f.stamp;}catch(e){}});
+      t.oncomplete=function(){db.close();tell("saved");}; t.onerror=t.onabort=function(){db.close();};
+    }).catch(function(){});
+  }
+  window.dhSyncSaves=syncSaves;
+  setInterval(syncSaves,1000);
+  window.addEventListener("pagehide",syncSaves);
+  document.addEventListener("visibilitychange",syncSaves);
   canvas.addEventListener("mousedown",function(){canvas.focus()});
   canvas.addEventListener("touchstart",function(){canvas.focus()},{passive:true});
-  // 브라우저 단축키(스페이스 스크롤, 방향키)가 바깥 페이지로 새지 않게 한다
-  window.addEventListener("keydown",function(e){if([9,32,37,38,39,40].indexOf(e.keyCode)>=0)e.preventDefault();});
+  // 브라우저 단축키(스페이스 스크롤, 방향키, F6 주소창)가 바깥 페이지로 새지 않게 한다. F2·F3·F6·F9는 저장·불러오기
+  window.addEventListener("keydown",function(e){if([9,32,37,38,39,40,113,114,117,120].indexOf(e.keyCode)>=0)e.preventDefault();});
 })();
 </script>
 <script src="websockets-doom.js"></script></body></html>
