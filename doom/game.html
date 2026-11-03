@@ -78,6 +78,28 @@
   canvas.addEventListener("touchstart",function(){canvas.focus()},{passive:true});
   // 브라우저 단축키(스페이스 스크롤, 방향키, F6 주소창)가 바깥 페이지로 새지 않게 한다. F2·F3·F6·F9는 저장·불러오기
   window.addEventListener("keydown",function(e){if([9,32,37,38,39,40,113,114,117,120].indexOf(e.keyCode)>=0)e.preventDefault();});
+
+  /* 게임패드(닌텐도 배치, 브라우저 표준 배치의 자리 기준). 패드 입력을 키보드 눌림으로 바꿔 캔버스에 넣는다 — 둠 엔진은 키보드만 안다.
+     십자키 ↑↓ = W·S 앞·뒤 · 십자키 ←→ = A·D 옆걸음 · 왼 스틱 ←→ = ←·→ 돌기
+     L1·L2 = Space 쏘기 · R1 = E 문·스위치 · R2 = Shift 달리기
+     무기 1~5 · Tab 지도 · Esc 메뉴 · F2·F3 저장·불러오기는 키보드로 한다. A·B·X·Y·−·+·스틱 누름은 쓰지 않는다. */
+  var K={W:[87,"KeyW","w"],S:[83,"KeyS","s"],A:[65,"KeyA","a"],D:[68,"KeyD","d"],L:[37,"ArrowLeft","ArrowLeft"],R:[39,"ArrowRight","ArrowRight"],
+         SP:[32,"Space"," "],E:[69,"KeyE","e"],SH:[16,"ShiftLeft","Shift"]};
+  var BTN={4:"SP",6:"SP",5:"E",7:"SH",12:"W",13:"S",14:"A",15:"D"};
+  var padHeld={}, padSeen=false;
+  function kev(type,k){ var d=K[k]; var e; try{ e=new KeyboardEvent(type,{keyCode:d[0],which:d[0],code:d[1],key:d[2],bubbles:true,cancelable:true}); }catch(x){ return; }
+    if(e.keyCode!==d[0]){ try{ Object.defineProperty(e,"keyCode",{get:function(){return d[0];}}); Object.defineProperty(e,"which",{get:function(){return d[0];}}); }catch(x){} }
+    canvas.dispatchEvent(e); }
+  function pollPad(){ requestAnimationFrame(pollPad); if(!window.dhStarted) return; var g=[]; try{ g=navigator.getGamepads?navigator.getGamepads():[]; }catch(x){} var ps=[]; for(var i=0;i<g.length;i++) if(g[i]&&g[i].connected!==false) ps.push(g[i]);
+    if(!ps.length){ if(padSeen){ padSeen=false; for(var h in padHeld) if(padHeld[h]){ padHeld[h]=false; kev("keyup",h); } tell("pad","off"); } return; }
+    if(!padSeen){ padSeen=true; tell("pad",(ps[0].id||"게임패드").replace(/\s*\(.*$/,"").slice(0,40)); }
+    var want={}; ps.forEach(function(p){ var b=p.buttons, ax=p.axes||[];
+      for(var i=0;i<b.length;i++){ if(BTN[i]&&b[i]&&(b[i].pressed||b[i].value>0.5)) want[BTN[i]]=true; }
+      if((ax[0]||0)<-0.5) want.L=true; if((ax[0]||0)>0.5) want.R=true; });
+    for(var k in want) if(!padHeld[k]){ padHeld[k]=true; kev("keydown",k); }
+    for(var k2 in padHeld) if(padHeld[k2]&&!want[k2]){ padHeld[k2]=false; kev("keyup",k2); }
+  }
+  if(navigator.getGamepads) pollPad();
 })();
 </script>
 <script src="websockets-doom.js"></script></body></html>

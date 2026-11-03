@@ -116,6 +116,7 @@ addEventListener('message',e=>{
   if(d.state==='started') status(`E1M${current.m} ${MAPS[current.m-1]} · 난이도 ${current.k}${current.g?' · IDDQD':''}${current.f?' · IDKFA':''}`);
   else if(d.state==='focus') setFocus(true);
   else if(d.state==='blur') setFocus(false);
+  else if(d.state==='pad') status(d.detail==='off'?'게임패드 연결 끊김':'게임패드 연결됨 · '+d.detail+' · 십자키 ↑↓ 앞·뒤 · 십자키 ←→ 옆걸음 · 왼 스틱 ←→ 돌기 · L1·L2 쏘기 · R1 문·스위치 · R2 달리기 · 무기·지도·메뉴·저장은 키보드');
   else if(d.state==='error') status('엔진 오류: '+d.detail,'error');
 });
 code.addEventListener('focus',()=>setFocus(false));

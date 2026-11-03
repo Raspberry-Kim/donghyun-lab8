@@ -2,7 +2,7 @@ cff-version: 1.2.0
 message: "If you use this software, please cite it using the metadata below."
 title: "Donghyundoom (동현둠): a browser laboratory for the shareware DOOM Episode 1, with the stage, skill, health, armour and the IDDQD and IDKFA cheats set through the esoteric language Donghyun-lang"
 type: software
-version: "0.22"
+version: "0.23"
 date-released: "2026-11-03"
 doi: "10.5281/zenodo.23793861"
 authors:
@@ -21,7 +21,8 @@ abstract: >-
   IDKFA cheats (0 or 1) are chosen by six integers printed by a program written
   in the esoteric programming language Donghyun-lang; cheats typed during play
   are disabled. All six shareware weapons are given at the start of every map,
-  and play uses the keyboard only. The repository is distributed under the GNU
+  and play uses the keyboard or a Bluetooth/USB gamepad (Nintendo layout,
+  translated into key presses for the engine). The repository is distributed under the GNU
   GPL 2.0 or later together with the modified engine source; the unmodified shareware
   DOOM1.WAD (v1.9) is (c) id Software and is not covered by the GPL. DOOM is a
   trademark of id Software; this project is not affiliated with or endorsed by
