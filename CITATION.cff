@@ -2,7 +2,7 @@ cff-version: 1.2.0
 message: "If you use this software, please cite it using the metadata below."
 title: "Donghyundoom (동현둠): a browser laboratory for the shareware DOOM Episode 1, with the stage, skill, health, armour and the IDDQD and IDKFA cheats set through the esoteric language Donghyun-lang"
 type: software
-version: "0.25"
+version: "0.26"
 date-released: "2026-11-03"
 doi: "10.5281/zenodo.23793861"
 authors:
