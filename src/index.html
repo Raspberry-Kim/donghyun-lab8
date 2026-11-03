@@ -12,7 +12,7 @@
 <body>
 <header class="header">
   <a class="brand" href="#" aria-label="동현둠 첫 화면으로"><span class="brand-main"><img class="brand-icon" src="__BRAND_ICON__" alt="" width="96" height="96">동현<span>둠</span><sup>TM</sup></span><i class="brand-divider"></i><span class="brand-sub">SHAREWARE DOOM LAB<small>에피소드 1 · 코드로 출전</small></span></a><a class="doi-badge" href="https://doi.org/10.5281/zenodo.23793861" target="_blank" rel="noopener" aria-label="동현둠 Zenodo DOI 10.5281/zenodo.23793861" title="Zenodo DOI (모든 버전)"><b>DOI</b><span>10.5281/zenodo.23793861</span></a>
-  <div class="edition">v0.24<button id="theme" class="icon-btn" aria-label="밝은 화면과 어두운 화면 전환" title="화면 전환" aria-pressed="false"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button></div>
+  <div class="edition">v0.25<button id="theme" class="icon-btn" aria-label="밝은 화면과 어두운 화면 전환" title="화면 전환" aria-pressed="false"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button></div>
 </header>
 <main>
 __SERIES_NAV__
@@ -58,7 +58,7 @@ __SERIES_NAV__
           <li><kbd>Tab</kbd> 지도</li>
           <li><kbd>Esc</kbd> 메뉴</li>
           <li><kbd>F2</kbd><kbd>F3</kbd> 저장·불러오기</li>
-          <li><span class="pad-tag">게임패드</span> 십자키·왼 스틱 ↑↓ 앞·뒤 · 십자키 ←→ 옆걸음 · 왼 스틱 ←→ 돌기 · R1·R2 쏘기 · L1 문·스위치 · L2 달리기 · 나머지는 키보드</li>
+          <li><span class="pad-tag">게임패드</span> 십자키·왼 스틱 ↑↓ 앞·뒤 · 십자키 ←→ 옆걸음 · 왼·오른 스틱 ←→ 돌기 · R1·R2 쏘기 · L1 문·스위치 · L2 달리기 · 나머지는 키보드</li>
           <li class="key-sound"><span class="snd-ico" aria-hidden="true">♪</span> 효과음은 게임 화면을 <b>마우스로 한 번 클릭</b>(휴대폰·태블릿은 손가락으로 한 번 누르기)하거나 게임 안에서 아무 키나 누르면 나기 시작한다.</li>
         </ul>
       </div>
@@ -147,14 +147,14 @@ __SERIES_NAV__
           <tbody>
             <tr><td>십자키 ↑ ↓ · 왼 스틱 ↑ ↓</td><td><kbd>W</kbd> <kbd>S</kbd> 앞으로 · 뒤로</td></tr>
             <tr><td>십자키 ← →</td><td><kbd>A</kbd> <kbd>D</kbd> 옆걸음</td></tr>
-            <tr><td>왼 스틱 ← →</td><td><kbd>←</kbd> <kbd>→</kbd> 돌기</td></tr>
+            <tr><td>왼 스틱 ← → · 오른 스틱 ← →</td><td><kbd>←</kbd> <kbd>→</kbd> 돌기</td></tr>
             <tr><td>R1 · R2</td><td><kbd>Space</kbd> 쏘기</td></tr>
             <tr><td>L1</td><td><kbd>E</kbd> 문 열기 · 스위치 누르기</td></tr>
             <tr><td>L2 누른 채</td><td><kbd>Shift</kbd> 달리기</td></tr>
             <tr><td>키보드로</td><td><kbd>1</kbd>~<kbd>5</kbd> 무기 · <kbd>Tab</kbd> 지도 · <kbd>Esc</kbd> 메뉴 · <kbd>F2</kbd> <kbd>F3</kbd> 저장·불러오기</td></tr>
           </tbody>
         </table></div>
-        <p>소리: 브라우저는 진짜 클릭이나 키 누름이 있어야 소리를 켠다. 패드만으로 놀 때 소리가 없으면 게임 화면을 한 번 클릭하거나 키보드를 한 번 누른다(상태 줄에도 안내가 뜬다). A·B·X·Y·−·+ 단추와 스틱 누름은 쓰지 않는다. 다른 실험실(동현전·워·크·몬)의 A·B 자리 바꿈(−) 설정은 동현둠에 영향을 주지 않는다.</p>
+        <p><strong>소리:</strong> 브라우저는 게임패드 입력을 사용자 동작으로 치지 않아, 패드만으로 시작하면 소리가 나지 않는다. 출전 뒤 <strong>키보드 아무 키를 한 번 누르거나 게임 화면을 한 번 클릭·터치</strong>하면 그때부터 소리가 난다(상태 줄에도 안내가 뜬다). 한 번 켜지면 패드만 써도 계속 난다. A·B·X·Y·−·+ 단추와 스틱 누름은 쓰지 않는다. 다른 실험실(동현전·워·크·몬)의 A·B 자리 바꿈(−) 설정은 동현둠에 영향을 주지 않는다.</p>
         <p><strong>실제 키보드나 게임패드가 있어야 한다.</strong> 화면 단추나 터치 조작은 없다. 휴대폰·태블릿은 블루투스 키보드나 게임패드를 연결하면 컴퓨터와 같이 싸울 수 있다. 데스크톱 화면에서의 이용을 권장한다. 마우스는 쓰지 않는다. 게임 화면을 한 번 누르면 키보드가 게임으로 가고, 아래 띠의 표시가 「키보드: 게임」으로 바뀐다. 코드 칸을 누르면 다시 코드로 돌아온다.</p>
         <p><strong>전체 화면</strong>에서는 Esc가 게임 메뉴를 연다. 원래 화면으로 돌아오려면 오른쪽 위 <b>✕ 전체 화면 닫기</b>를 누른다.</p>
         <p><strong>저장</strong>은 Esc 메뉴의 Save Game이나 <kbd>F2</kbd>로 한다. 슬롯을 고르고 Enter, 이름을 쓰고 다시 Enter를 누르면 「GAME SAVED.」가 뜬다. 저장은 이 브라우저 안에만 남아 새로고침하거나 다음에 와도 Load Game(<kbd>F3</kbd>)으로 이어 할 수 있다. 다른 브라우저·기기로는 옮겨지지 않고, 브라우저의 사이트 데이터를 지우면 함께 지워진다. 불러오면 저장할 때의 맵·체력·무기로 돌아가며, 코드로 정한 체력·방어구는 출전할 때만 들어간다.</p>
@@ -204,7 +204,7 @@ __SERIES_NAV__
     <aside class="maker-note"><span class="eyebrow">만든 사람</span><p>인하대학교 의과대학 김동현 교수는 백신학·감염학을 연구한다. 동현둠은 동현랭 시리즈의 아홉 번째 프로젝트이다.</p></aside>
   </section>
 </main>
-<footer><span>동현둠 v0.24 · 인하대학교 의과대학 교수 김동현</span><span>둠 Shareware 에피소드 1 · 키보드 또는 게임패드</span><span><a href="https://raspberry-kim.github.io/donghyun-lang/" target="_blank" rel="noopener">동현랭</a> · <a href="https://github.com/Raspberry-Kim/donghyun-lang" target="_blank" rel="noopener">동현랭 GitHub</a> · <a href="https://github.com/Raspberry-Kim/donghyun-lab8" target="_blank" rel="noopener">동현둠 GitHub</a> · <a href="https://raspberry-kim.github.io/donghyun-lab1/" target="_blank" rel="noopener">동현초</a> · <a href="https://raspberry-kim.github.io/donghyun-lab2/" target="_blank" rel="noopener">동현파</a> · <a href="https://raspberry-kim.github.io/donghyun-lab3/" target="_blank" rel="noopener">동현빌</a> · <a href="https://raspberry-kim.github.io/donghyun-lab4/" target="_blank" rel="noopener">동현전</a> · <a href="https://raspberry-kim.github.io/donghyun-lab5/" target="_blank" rel="noopener">동현콥</a> · <a href="https://raspberry-kim.github.io/donghyun-lab6/" target="_blank" rel="noopener">동현텐</a> · <a href="https://raspberry-kim.github.io/donghyun-lab7/" target="_blank" rel="noopener">동현워</a></span></footer>
+<footer><span>동현둠 v0.25 · 인하대학교 의과대학 교수 김동현</span><span>둠 Shareware 에피소드 1 · 키보드 또는 게임패드</span><span><a href="https://raspberry-kim.github.io/donghyun-lang/" target="_blank" rel="noopener">동현랭</a> · <a href="https://github.com/Raspberry-Kim/donghyun-lang" target="_blank" rel="noopener">동현랭 GitHub</a> · <a href="https://github.com/Raspberry-Kim/donghyun-lab8" target="_blank" rel="noopener">동현둠 GitHub</a> · <a href="https://raspberry-kim.github.io/donghyun-lab1/" target="_blank" rel="noopener">동현초</a> · <a href="https://raspberry-kim.github.io/donghyun-lab2/" target="_blank" rel="noopener">동현파</a> · <a href="https://raspberry-kim.github.io/donghyun-lab3/" target="_blank" rel="noopener">동현빌</a> · <a href="https://raspberry-kim.github.io/donghyun-lab4/" target="_blank" rel="noopener">동현전</a> · <a href="https://raspberry-kim.github.io/donghyun-lab5/" target="_blank" rel="noopener">동현콥</a> · <a href="https://raspberry-kim.github.io/donghyun-lab6/" target="_blank" rel="noopener">동현텐</a> · <a href="https://raspberry-kim.github.io/donghyun-lab7/" target="_blank" rel="noopener">동현워</a></span></footer>
 <script src="./app.js"></script>
 <script>
 /* 입력 표식 풍선 도움말 */
