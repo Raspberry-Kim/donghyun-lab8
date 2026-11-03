@@ -1,4 +1,4 @@
-# 동현둠 v0.2
+# 동현둠 v0.21
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23793861.svg)](https://doi.org/10.5281/zenodo.23793861)
 
