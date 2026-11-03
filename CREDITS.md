@@ -24,7 +24,7 @@
 ## 동현둠이 새로 만든 것
 
 - 화면(`src/index.html`, `src/style.css`, `src/app.js`), 동현랭 출전 규약과 예제(`src/examples.js`), 엔진 띄우기(`doom/game.html`, `doom/default.cfg`), 엔진 수정, 시험(`qa/`), 문서.
-- 동현랭 실행기(`src/donghyun.js`)는 [동현랭 저장소](https://github.com/Raspberry-Kim/donghyun-lang)의 v1.53을 고치지 않고 썼다.
+- 동현랭 실행기(`src/donghyun.js`)는 [동현랭 저장소](https://github.com/Raspberry-Kim/donghyun-lang)의 v1.54을 고치지 않고 썼다.
 
 ## 이용 조건
 
