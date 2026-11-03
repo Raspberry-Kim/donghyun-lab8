@@ -80,12 +80,12 @@
   window.addEventListener("keydown",function(e){if([9,32,37,38,39,40,113,114,117,120].indexOf(e.keyCode)>=0)e.preventDefault();});
 
   /* 게임패드(닌텐도 배치, 브라우저 표준 배치의 자리 기준). 패드 입력을 키보드 눌림으로 바꿔 캔버스에 넣는다 — 둠 엔진은 키보드만 안다.
-     십자키 ↑↓ = W·S 앞·뒤 · 십자키 ←→ = A·D 옆걸음 · 왼 스틱 ←→ = ←·→ 돌기
-     L1·L2 = Space 쏘기 · R1 = E 문·스위치 · R2 = Shift 달리기
+     십자키 ↑↓ = W·S 앞·뒤 · 십자키 ←→ = A·D 옆걸음 · 왼 스틱 ←→ = ←·→ 돌기, 왼 스틱 ↑↓ = W·S 앞·뒤
+     R1·R2 = Space 쏘기 · L1 = E 문·스위치 · L2 = Shift 달리기
      무기 1~5 · Tab 지도 · Esc 메뉴 · F2·F3 저장·불러오기는 키보드로 한다. A·B·X·Y·−·+·스틱 누름은 쓰지 않는다. */
   var K={W:[87,"KeyW","w"],S:[83,"KeyS","s"],A:[65,"KeyA","a"],D:[68,"KeyD","d"],L:[37,"ArrowLeft","ArrowLeft"],R:[39,"ArrowRight","ArrowRight"],
          SP:[32,"Space"," "],E:[69,"KeyE","e"],SH:[16,"ShiftLeft","Shift"]};
-  var BTN={4:"SP",6:"SP",5:"E",7:"SH",12:"W",13:"S",14:"A",15:"D"};
+  var BTN={5:"SP",7:"SP",4:"E",6:"SH",12:"W",13:"S",14:"A",15:"D"};
   var padHeld={}, padSeen=false;
   function kev(type,k){ var d=K[k]; var e; try{ e=new KeyboardEvent(type,{keyCode:d[0],which:d[0],code:d[1],key:d[2],bubbles:true,cancelable:true}); }catch(x){ return; }
     if(e.keyCode!==d[0]){ try{ Object.defineProperty(e,"keyCode",{get:function(){return d[0];}}); Object.defineProperty(e,"which",{get:function(){return d[0];}}); }catch(x){} }
@@ -95,11 +95,20 @@
     if(!padSeen){ padSeen=true; tell("pad",(ps[0].id||"게임패드").replace(/\s*\(.*$/,"").slice(0,40)); }
     var want={}; ps.forEach(function(p){ var b=p.buttons, ax=p.axes||[];
       for(var i=0;i<b.length;i++){ if(BTN[i]&&b[i]&&(b[i].pressed||b[i].value>0.5)) want[BTN[i]]=true; }
-      if((ax[0]||0)<-0.5) want.L=true; if((ax[0]||0)>0.5) want.R=true; });
+      if((ax[0]||0)<-0.5) want.L=true; if((ax[0]||0)>0.5) want.R=true; if((ax[1]||0)<-0.5) want.W=true; if((ax[1]||0)>0.5) want.S=true; });
     for(var k in want) if(!padHeld[k]){ padHeld[k]=true; kev("keydown",k); }
     for(var k2 in padHeld) if(padHeld[k2]&&!want[k2]){ padHeld[k2]=false; kev("keyup",k2); }
   }
   if(navigator.getGamepads) pollPad();
+
+  /* 소리 깨우기. 엔진(SDL2)은 첫 keydown·mousedown·touchstart 한 번에만 오디오를 켜려 한다(listenOnce).
+     패드 입력을 바꾼 가짜 keydown이 그 한 번을 써 버리면 — 가짜 입력에는 사용자 동작 권한이 없어 켜지지도 않는다 — 그 뒤 진짜 키를 눌러도 소리가 안 난다.
+     그래서 진짜 사용자 동작(isTrusted)마다 오디오가 잠들어 있으면 깨운다. 바깥 페이지의 동작도 메시지로 받는다(같은 출처라 권한이 함께 온다). */
+  function audioCtx(){ var s=window.Module&&Module.SDL2; return s&&s.audioContext||null; }
+  function wakeAudio(){ var c=audioCtx(); if(c&&c.state==="suspended"){ try{ var r=c.resume(); if(r&&r.then) r.then(function(){ tell("sound","on"); },function(){}); }catch(e){} } }
+  ["keydown","mousedown","touchstart","pointerdown"].forEach(function(ev){ window.addEventListener(ev,function(e){ if(e.isTrusted) wakeAudio(); },true); });
+  window.addEventListener("message",function(e){ if(e.data&&e.data.type==="dh-wake") wakeAudio(); });
+  var muteTold=false; setInterval(function(){ var c=audioCtx(); if(!c) return; if(c.state==="suspended"&&padSeen&&!muteTold){ muteTold=true; tell("sound","off"); } if(c.state==="running"&&muteTold){ muteTold=false; tell("sound","on"); } },500);
 })();
 </script>
 <script src="websockets-doom.js"></script></body></html>

@@ -110,13 +110,16 @@ function stop(silent){
   ['#stop','#full'].forEach(id=>$(id).disabled=true);
   if(!silent) status('끝냈다 · 다시 출전할 수 있다');
 }
+/* 바깥 페이지에서의 진짜 사용자 동작(클릭·키)을 게임 틀에 알려 잠든 소리를 깨운다 */
+['pointerdown','keydown'].forEach(ev=>addEventListener(ev,e=>{ if(e.isTrusted&&frame){ try{ frame.contentWindow.postMessage({type:'dh-wake'},'*'); }catch(_){} } },true));
 addEventListener('message',e=>{
   if(!frame||e.source!==frame.contentWindow||!e.data||e.data.type!=='dh-doom')return;
   const d=e.data;
   if(d.state==='started') status(`E1M${current.m} ${MAPS[current.m-1]} · 난이도 ${current.k}${current.g?' · IDDQD':''}${current.f?' · IDKFA':''}`);
   else if(d.state==='focus') setFocus(true);
   else if(d.state==='blur') setFocus(false);
-  else if(d.state==='pad') status(d.detail==='off'?'게임패드 연결 끊김':'게임패드 연결됨 · '+d.detail+' · 십자키 ↑↓ 앞·뒤 · 십자키 ←→ 옆걸음 · 왼 스틱 ←→ 돌기 · L1·L2 쏘기 · R1 문·스위치 · R2 달리기 · 무기·지도·메뉴·저장은 키보드');
+  else if(d.state==='sound') status(d.detail==='off'?'소리가 잠들어 있다 · 게임 화면을 한 번 클릭하거나 키보드를 한 번 누르면 켜진다':'소리 켜짐');
+  else if(d.state==='pad') status(d.detail==='off'?'게임패드 연결 끊김':'게임패드 연결됨 · '+d.detail+' · 십자키·왼 스틱 ↑↓ 앞·뒤 · 십자키 ←→ 옆걸음 · 왼 스틱 ←→ 돌기 · R1·R2 쏘기 · L1 문·스위치 · L2 달리기 · 무기·지도·메뉴·저장은 키보드');
   else if(d.state==='error') status('엔진 오류: '+d.detail,'error');
 });
 code.addEventListener('focus',()=>setFocus(false));
