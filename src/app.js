@@ -124,7 +124,7 @@ addEventListener('message',e=>{
 });
 code.addEventListener('focus',()=>setFocus(false));
 $('#stop').onclick=()=>stop(false);
-/* 전체 화면: 게임 틀이 아니라 화면 칸 전체를 띄워 '닫기' 단추를 함께 보인다. 게임 안의 Esc는 둠 메뉴를 연다. */
+/* 전체 화면: 게임 틀이 아니라 화면 칸 전체를 띄워 '닫기' 버튼을 함께 보인다. 게임 안의 Esc는 둠 메뉴를 연다. */
 const fullEl=()=>document.fullscreenElement||document.webkitFullscreenElement;
 /* iPhone Safari처럼 요소 전체 화면을 못 쓰는 곳에서는 화면 칸을 창 가득 채운다(유사 전체 화면). */
 const canNativeFull=!!((document.fullscreenEnabled||document.webkitFullscreenEnabled)&&(screen.requestFullscreen||screen.webkitRequestFullscreen));
