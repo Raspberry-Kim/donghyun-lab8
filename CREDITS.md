@@ -10,7 +10,7 @@
 ## 게임 자료
 
 - **DOOM1.WAD (Shareware v1.9)** — © 1994 id Software. MD5 `f0cefca49926d00903cf57551d901abe`. 고치지 않은 원래 파일을 Debian 꾸러미 원본에서 가져왔다 (http://deb.debian.org/debian/pool/non-free/d/doom-wad-shareware/doom-wad-shareware_1.9.fixed.orig.tar.gz).
-- 이용 조건: Shareware 파일은 고치지 않으면 자유롭게 나눌 수 있지만 돈을 받고 나눌 수 없다. John Carmack의 회신이 Debian 저작권 파일에 실려 있다 (https://metadata.ftp-master.debian.org/changelogs/non-free/d/doom-wad-shareware/unstable_copyright). Raphael Quinet의 정리도 참고했다 (https://people.montefiore.uliege.be/quinet/games/sellingwads-en.html). 원문은 [licenses/DOOM1-WAD-LICENSE.txt](licenses/DOOM1-WAD-LICENSE.txt).
+- 이용 조건: Shareware 파일은 고치지 않으면 자유롭게 나눌 수 있지만 돈을 받고 나눌 수 없다. John Carmack의 회신이 Debian 저작권 파일에 실려 있다 (https://metadata.ftp-master.debian.org/changelogs/non-free/d/doom-wad-shareware/unstable_copyright). Raphael Quinet의 정리도 참고했다 (원문 주소가 없어져 Internet Archive 보관본, https://web.archive.org/web/20250717114401/https://people.montefiore.uliege.be/quinet/games/sellingwads-en.html). 원문은 [licenses/DOOM1-WAD-LICENSE.txt](licenses/DOOM1-WAD-LICENSE.txt).
 - 이 파일은 GPL이 아니며, 동현둠 저장소의 GPL은 이 파일에 미치지 않는다.
 
 ## 맵 이름
