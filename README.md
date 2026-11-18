@@ -1,4 +1,4 @@
-# 동현둠 v0.34
+# 동현둠 v0.35
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23793861.svg)](https://doi.org/10.5281/zenodo.23793861)
 
@@ -97,7 +97,7 @@
 ```
 node build.cjs            # dist/와 루트 index.html(GitHub Pages용) 생성
 node qa/core-tests.cjs    # 예제 출력, 규약 판정, WAD MD5 확인
-node qa/note-blink.cjs    # 안내 상자의 빨간 테두리 점멸 7묶음(Playwright). 뒤에 chromium·firefox·webkit을 붙여 고른다
+node qa/note-blink.cjs    # 안내 상자의 살구색 테두리(처음 열 번만 점멸) 8묶음(Playwright). 뒤에 chromium·firefox·webkit을 붙여 고른다
 ```
 
 엔진은 브라우저에서 스테이지·난이도·체력·방어구·IDDQD(무적 얼굴)·IDKFA(방어구 200·열쇠·탄약)가 듣는지, 게임 중에 친 iddqd·idkfa가 듣지 않는지 확인했다.
