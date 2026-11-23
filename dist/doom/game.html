@@ -103,12 +103,14 @@
 
   /* 소리 깨우기. 엔진(SDL2)은 첫 keydown·mousedown·touchstart 한 번에만 오디오를 켜려 한다(listenOnce).
      패드 입력을 바꾼 가짜 keydown이 그 한 번을 써 버리면 — 가짜 입력에는 사용자 동작 권한이 없어 켜지지도 않는다 — 그 뒤 진짜 키를 눌러도 소리가 안 난다.
-     그래서 진짜 사용자 동작(isTrusted)마다 오디오가 잠들어 있으면 깨운다. 바깥 페이지의 동작도 메시지로 받는다(같은 출처라 권한이 함께 온다). */
+     그래서 진짜 사용자 동작(isTrusted)마다 오디오가 돌고 있지 않으면 깨운다. 바깥 페이지의 동작도 메시지로 받는다(같은 출처라 권한이 함께 온다).
+     Safari는 탭을 바꾸거나 통화가 끝난 뒤 'interrupted'로 남으므로 'suspended'만 보지 않는다. 화면으로 돌아올 때도 한 번 깨워 본다. */
   function audioCtx(){ var s=window.Module&&Module.SDL2; return s&&s.audioContext||null; }
-  function wakeAudio(){ var c=audioCtx(); if(c&&c.state==="suspended"){ try{ var r=c.resume(); if(r&&r.then) r.then(function(){ tell("sound","on"); },function(){}); }catch(e){} } }
-  ["keydown","mousedown","touchstart","pointerdown"].forEach(function(ev){ window.addEventListener(ev,function(e){ if(e.isTrusted) wakeAudio(); },true); });
+  function wakeAudio(){ var c=audioCtx(); if(c&&c.state!=="running"&&c.state!=="closed"){ try{ var r=c.resume(); if(r&&r.then) r.then(function(){ tell("sound","on"); },function(){}); }catch(e){} } }
+  ["keydown","mousedown","touchstart","pointerdown","touchend","click"].forEach(function(ev){ window.addEventListener(ev,function(e){ if(e.isTrusted) wakeAudio(); },true); });
+  document.addEventListener("visibilitychange",function(){ if(!document.hidden) wakeAudio(); }); window.addEventListener("pageshow",wakeAudio); window.addEventListener("focus",wakeAudio);
   window.addEventListener("message",function(e){ if(e.data&&e.data.type==="dh-wake") wakeAudio(); });
-  var muteTold=false; setInterval(function(){ var c=audioCtx(); if(!c) return; if(c.state==="suspended"&&padSeen&&!muteTold){ muteTold=true; tell("sound","off"); } if(c.state==="running"&&muteTold){ muteTold=false; tell("sound","on"); } },500);
+  var muteTold=false; setInterval(function(){ var c=audioCtx(); if(!c) return; if(c.state!=="running"&&c.state!=="closed"&&padSeen&&!muteTold){ muteTold=true; tell("sound","off"); } if(c.state==="running"&&muteTold){ muteTold=false; tell("sound","on"); } },500);
 })();
 </script>
 <script src="websockets-doom.js"></script></body></html>
