@@ -111,7 +111,7 @@ function stop(silent){
   if(!silent) status('끝냈다 · 다시 출전할 수 있다');
 }
 /* 바깥 페이지에서의 진짜 사용자 동작(클릭·키)을 게임 틀에 알려 잠든 소리를 깨운다 */
-['pointerdown','keydown'].forEach(ev=>addEventListener(ev,e=>{ if(e.isTrusted&&frame){ try{ frame.contentWindow.postMessage({type:'dh-wake'},'*'); }catch(_){} } },true));
+['pointerdown','keydown','touchend','click'].forEach(ev=>addEventListener(ev,e=>{ if(e.isTrusted&&frame){ try{ frame.contentWindow.postMessage({type:'dh-wake'},'*'); }catch(_){} } },true));
 addEventListener('message',e=>{
   if(!frame||e.source!==frame.contentWindow||!e.data||e.data.type!=='dh-doom')return;
   const d=e.data;
